@@ -23,13 +23,13 @@ robots.txt
 
 The free plan allows 250 enquiries a month. Each email includes the customer's name, phone, email (if given), postcode, property type, services, frequency and message. If the customer gives an email address, Tim can just hit Reply.
 
-## 2. Swap in the real business name
+## 2. Business name
 
-"Heath Window Cleaning" is a working name (a nod to Newmarket Heath). Once Tim picks his name:
+The business is called "Tim’s Window Cleaning". To change it later:
 
-- Find and replace `Heath Window Cleaning` throughout `index.html` (title, description, share text, form email name and footer).
-- Replace the short logo word in the two `<span class="brand-name">Heath</span>` lines (header and footer).
-- Regenerate `assets/og-image.png` (the preview image shown when the link is shared on WhatsApp or Facebook), because the old name is in it. Ask Claude to redo it.
+- Find and replace `Tim’s Window Cleaning` throughout `index.html` (title, share text, schema `name`, form email name and footer).
+- Replace the short logo word in the two `<span class="brand-name">Tim’s</span>` lines (header and footer).
+- Regenerate `assets/og-image.png` (the preview image shown when the link is shared on WhatsApp or Facebook), because the name is in it. Ask Claude to redo it.
 
 The phone number appears as `07799 963390` and `447799963390`, so a find and replace handles both if it ever changes.
 

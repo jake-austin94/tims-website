@@ -1,4 +1,4 @@
-/* Heath Window Cleaning: site behaviour
+/* Tim’s Window Cleaning: site behaviour
    1. Header, navigation and mobile action bar
    2. The hero window (grime, squeegee and wipe)
    3. Quote form (validation + Web3Forms)
