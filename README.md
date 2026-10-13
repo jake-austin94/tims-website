@@ -66,4 +66,4 @@ There are no reviews, insurance details or years in business on the site yet, on
 
 ### How the hero window works
 
-When the page loads, a squeegee cleans the top sash with pure water, leaving the bottom one dirty as a before-and-after. Visitors can wipe the rest with their mouse, or tap the glass or the *Finish the window* link on a phone. Anyone who has asked their device to reduce motion sees it without the animation.
+The whole window starts dirty. Visitors clean it by running their mouse over the glass (or swiping across it on a phone), or click *let Tim do it* to watch the squeegee clean it top to bottom. Once the glass is clean the caption reads "That's how Tim will leave your windows every time." and a *Make it dirty again* button puts fresh grime back so they can go again. Anyone who has asked their device to reduce motion sees it without the animation.

@@ -118,7 +118,7 @@ h3 {
 .btn-brass:hover { background: var(--brass-pale); }
 .btn-navy { background: var(--navy); color: var(--paper); }
 .btn-navy:hover { background: var(--ink); }
-.btn-ghost { border-color: rgba(237, 230, 217, .45); color: var(--stone); }
+.btn-ghost { background: transparent; border-color: rgba(237, 230, 217, .45); color: var(--stone); }
 .btn-ghost:hover { border-color: var(--stone); background: rgba(237, 230, 217, .06); }
 
 .link-button {
@@ -236,6 +236,8 @@ h3 {
   min-height: 1.6em;
 }
 .window-caption .link-button { margin-left: .35rem; color: var(--brass-pale); }
+.window-reset { display: block; }
+.window-reset .btn { margin-top: 1rem; font-size: .9rem; }
 
 .hero-areas { margin-top: clamp(3rem, 6vw, 4.5rem); }
 .hero-areas p {

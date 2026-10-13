@@ -94,6 +94,7 @@
     var gleam = root.querySelector("[data-gleam]");
     var captionText = root.querySelector("[data-caption-text]");
     var finishBtn = root.querySelector("[data-finish]");
+    var dirtyBtn = root.querySelector("[data-dirty]");
     if (!canvas || !canvas.getContext) return;
 
     var ctx = canvas.getContext("2d");
@@ -102,14 +103,16 @@
     var glassPath = typeof Path2D === "function" ? new Path2D(GLASS) : null;
     var BLADE = 44; // half the squeegee blade length
     var scale = 1;
-    var state = "dirty"; // dirty -> animating -> half -> finishing -> clean
+    var state = "dirty"; // dirty -> (wiped by hand | animating) -> clean -> dirty again
+    var grimeSeed = 7;
     var lastWipe = null;
     var lastCheck = 0;
+    var CLEAN_ENOUGH = 0.9; // share of the glass wiped before we call it clean
 
-    // Serpentine "fanning" passes, like a real window cleaner.
+    // Serpentine "fanning" passes over the whole window, like a real window cleaner.
     // x of 0 / 400 means "edge of the glass"; the squeegee itself is clamped inside the arch.
-    var TOP_PASSES = [[0, 64], [400, 64], [400, 146], [0, 146], [0, 228], [400, 228], [400, 310], [0, 310], [0, 372], [400, 372]];
-    var BOTTOM_PASSES = [[0, 458], [400, 458], [400, 540], [0, 540], [0, 576], [400, 576]];
+    var PASSES = [[0, 64], [400, 64], [400, 146], [0, 146], [0, 228], [400, 228], [400, 310], [0, 310], [0, 372], [400, 372],
+      [400, 458], [0, 458], [0, 540], [400, 540], [400, 576], [0, 576]];
 
     squeegee.style.transition = "opacity .35s ease";
 
@@ -127,6 +130,7 @@
       canvas.width = Math.round(rect.width * dpr);
       canvas.height = Math.round(rect.height * dpr);
       scale = canvas.width / VB_W;
+      buildSamples();
       redraw();
     }
 
@@ -149,7 +153,7 @@
       ctx.fillStyle = haze;
       ctx.fillRect(0, 0, 400, 640);
 
-      var r = rng(7);
+      var r = rng(grimeSeed);
       var i;
       // grit and dust
       for (i = 0; i < 2200; i++) {
@@ -201,7 +205,7 @@
       ctx.globalCompositeOperation = "destination-out";
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.lineWidth = 64;
+      ctx.lineWidth = BLADE * 2 - 12;
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       ctx.globalCompositeOperation = "source-over";
     }
@@ -220,7 +224,6 @@
         return;
       }
       paintGrime();
-      if (state === "half" || state === "finishing") erasePasses(TOP_PASSES);
     }
 
     // Where the squeegee can sit at height y without poking outside the glass
@@ -306,63 +309,75 @@
       gleam.classList.add("is-running");
     }
 
-    function setCaption(text, showButton) {
+    function setCaption(text, button) {
       captionText.textContent = text;
-      finishBtn.hidden = !showButton;
+      finishBtn.hidden = button !== "finish";
+      dirtyBtn.hidden = button !== "dirty";
     }
 
-    function toHalf() {
-      state = "half";
-      stage.classList.toggle("is-wipeable", canHover);
-      if (canHover) {
-        setCaption("Top sash done. Wipe the bottom yourself, or", true);
-        finishBtn.textContent = "let us finish it";
-      } else {
-        setCaption("Top sash done with pure water.", true);
-        finishBtn.textContent = "Finish the window";
-      }
+    function toDirty() {
+      state = "dirty";
+      lastWipe = null;
+      stage.classList.add("is-wipeable");
+      setCaption(canHover
+        ? "Run your cursor over the glass to clean it, or"
+        : "Swipe across the glass to clean it, or", "finish");
+      finishBtn.textContent = "let Tim do it";
     }
 
     function toClean() {
       state = "clean";
+      lastWipe = null;
       stage.classList.remove("is-wipeable");
+      squeegee.style.opacity = "0";
       canvas.style.transition = reduceMotion ? "none" : "opacity .6s ease";
       canvas.style.opacity = "0";
       runGleam();
-      setCaption("That's the pure-water finish.", false);
+      setCaption("That's how Tim will leave your windows every time.", "dirty");
     }
 
+    // Let Tim do it: squeegee the whole window, top to bottom
     function finish() {
-      if (state !== "half") return;
-      state = "finishing";
-      finishBtn.hidden = true;
-      if (reduceMotion) { toClean(); return; }
-      runPasses(BOTTOM_PASSES, 1500, toClean);
-    }
-
-    function start() {
       if (state !== "dirty") return;
-      if (reduceMotion) {
-        erasePasses(TOP_PASSES);
-        toHalf();
-        return;
-      }
+      if (reduceMotion) { toClean(); return; }
       state = "animating";
-      runPasses(TOP_PASSES, 2600, toHalf);
+      stage.classList.remove("is-wipeable");
+      setCaption("Pure water, top to bottom.", null);
+      runPasses(PASSES, 3600, toClean);
     }
 
-    // Measure how much of the bottom sash has been wiped by hand
-    function bottomCleared() {
-      var x0 = Math.round((24 - VB_X) * scale), y0 = Math.round(418 * scale);
-      var w = Math.round(352 * scale), h = Math.round(176 * scale);
-      var data;
-      try { data = ctx.getImageData(x0, y0, w, h).data; } catch (err) { return 0; }
-      var step = 4 * 9, clear = 0, count = 0;
-      for (var i = 3; i < data.length; i += step) {
-        count++;
-        if (data[i] < 40) clear++;
+    // Put fresh grime back on the glass so it can be cleaned again
+    function makeDirty() {
+      if (state !== "clean") return;
+      grimeSeed = (grimeSeed * 31 + 17) % 9973; // a slightly different mess each time
+      paintGrime();
+      canvas.style.transition = reduceMotion ? "none" : "opacity .5s ease";
+      canvas.style.opacity = "1";
+      toDirty();
+    }
+
+    // Sample points spread over the glass (inside the arch), as canvas pixel offsets
+    var samples = [];
+    function buildSamples() {
+      samples = [];
+      for (var y = 28; y < 594; y += 8) {
+        for (var x = 28; x < 374; x += 8) {
+          if (y < 200 && (x - 200) * (x - 200) + (200 - y) * (200 - y) > 170 * 170) continue;
+          var px = Math.round((x - VB_X) * scale), py = Math.round(y * scale);
+          samples.push((py * canvas.width + px) * 4 + 3);
+        }
       }
-      return count ? clear / count : 0;
+    }
+
+    // Share of the glass that has been wiped by hand
+    function glassCleared() {
+      var data;
+      try { data = ctx.getImageData(0, 0, canvas.width, canvas.height).data; } catch (err) { return 0; }
+      var clear = 0;
+      for (var i = 0; i < samples.length; i++) {
+        if (data[samples[i]] < 40) clear++;
+      }
+      return samples.length ? clear / samples.length : 0;
     }
 
     function viewPoint(e) {
@@ -373,22 +388,37 @@
       };
     }
 
-    canvas.addEventListener("pointermove", function (e) {
-      if (state !== "half" || e.pointerType !== "mouse") return;
+    function wipe(e) {
+      if (state !== "dirty") return;
+      // a mouse wipes on hover; a finger wipes while it's down
+      if (e.pointerType !== "mouse" && !e.buttons && e.type !== "pointerdown") return;
       var pt = viewPoint(e);
+      pt.y = Math.min(Math.max(pt.y, 40), 580);
+      var dir = lastWipe && pt.x < lastWipe.x ? -1 : 1;
       if (lastWipe) eraseStroke(lastWipe, pt);
+      else eraseStroke(pt, pt);
       lastWipe = pt;
+      placeSqueegee(pt.x, pt.y, dir);
+      squeegee.style.opacity = "1";
       var now = performance.now();
-      if (now - lastCheck > 250) {
+      if (now - lastCheck > 200) {
         lastCheck = now;
-        if (bottomCleared() > 0.62) toClean();
+        if (glassCleared() > CLEAN_ENOUGH) toClean();
       }
-    });
-    canvas.addEventListener("pointerleave", function () { lastWipe = null; });
-    canvas.addEventListener("pointerdown", function (e) {
-      if (e.pointerType !== "mouse") finish();
-    });
+    }
+
+    function endWipe() {
+      lastWipe = null;
+      if (state === "dirty") squeegee.style.opacity = "0";
+    }
+
+    canvas.addEventListener("pointermove", wipe);
+    canvas.addEventListener("pointerdown", wipe);
+    canvas.addEventListener("pointerleave", endWipe);
+    canvas.addEventListener("pointerup", function (e) { if (e.pointerType !== "mouse") endWipe(); });
+    canvas.addEventListener("pointercancel", endWipe);
     finishBtn.addEventListener("click", finish);
+    dirtyBtn.addEventListener("click", makeDirty);
 
     if ("ResizeObserver" in window) {
       var lastW = 0;
@@ -396,24 +426,12 @@
         var w = entries[0].contentRect.width;
         if (Math.abs(w - lastW) < 1) return;
         lastW = w;
-        if (state === "animating" || state === "finishing") return; // repaint at the end instead
+        if (state === "animating") return; // repaint at the end instead
         setup();
       }).observe(stage);
     }
     setup();
-
-    // Start the clean once the window is properly in view
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) {
-          io.disconnect();
-          setTimeout(start, reduceMotion ? 0 : 650);
-        }
-      }, { threshold: 0.55 });
-      io.observe(stage);
-    } else {
-      start();
-    }
+    toDirty();
   }
 
   /* ------------------------------------------------------------------
