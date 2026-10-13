@@ -1,0 +1,597 @@
+/* Heath Window Cleaning: site behaviour
+   1. Header, navigation and mobile action bar
+   2. The hero window (grime, squeegee and wipe)
+   3. Quote form (validation + Web3Forms)
+*/
+(function () {
+  "use strict";
+
+  var PHONE_DISPLAY = "07799 963390";
+  var PHONE_TEL = "+447799963390";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* ------------------------------------------------------------------
+     1. Header, navigation, action bar, small bits
+  ------------------------------------------------------------------ */
+  var header = document.querySelector("[data-header]");
+  function onScroll() {
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  var navToggle = document.querySelector("[data-nav-toggle]");
+  var nav = document.getElementById("site-nav");
+  function setNav(open) {
+    if (!navToggle || !nav) return;
+    navToggle.setAttribute("aria-expanded", String(open));
+    nav.classList.toggle("is-open", open);
+  }
+  if (navToggle && nav) {
+    navToggle.addEventListener("click", function () {
+      setNav(navToggle.getAttribute("aria-expanded") !== "true");
+    });
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) setNav(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        setNav(false);
+        navToggle.focus();
+      }
+    });
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 860) setNav(false);
+    });
+  }
+
+  var yearEl = document.querySelector("[data-year]");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  // Mobile action bar: shown once the hero buttons have scrolled away, hidden over the form
+  var actionBar = document.querySelector("[data-action-bar]");
+  var heroActions = document.querySelector("[data-hero-actions]");
+  var quoteSection = document.getElementById("quote");
+  if (actionBar && heroActions && quoteSection && "IntersectionObserver" in window) {
+    var heroVisible = true, quoteVisible = false;
+    var updateBar = function () {
+      actionBar.classList.toggle("is-visible", !heroVisible && !quoteVisible);
+    };
+    new IntersectionObserver(function (entries) {
+      heroVisible = entries[0].isIntersecting; updateBar();
+    }).observe(heroActions);
+    new IntersectionObserver(function (entries) {
+      quoteVisible = entries[0].isIntersecting; updateBar();
+    }, { threshold: 0.15 }).observe(quoteSection);
+  }
+
+  // "Add to my quote" links tick the matching service on the form
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest("[data-service]");
+    if (!link) return;
+    var value = link.getAttribute("data-service");
+    var boxes = document.querySelectorAll('input[name="services"]');
+    for (var i = 0; i < boxes.length; i++) {
+      if (boxes[i].value === value) boxes[i].checked = true;
+    }
+    clearError("services");
+  });
+
+  /* ------------------------------------------------------------------
+     2. Hero window
+     All three layers share the viewBox -20 0 440 640, so the canvas uses
+     the same coordinates as the SVG artwork.
+  ------------------------------------------------------------------ */
+  var windowEl = document.querySelector("[data-window]");
+  if (windowEl) initWindow(windowEl);
+
+  function initWindow(root) {
+    var stage = root.querySelector(".window-stage");
+    var canvas = root.querySelector("[data-grime]");
+    var squeegee = root.querySelector("[data-squeegee]");
+    var flip = root.querySelector("[data-squeegee-flip]");
+    var gleam = root.querySelector("[data-gleam]");
+    var captionText = root.querySelector("[data-caption-text]");
+    var finishBtn = root.querySelector("[data-finish]");
+    if (!canvas || !canvas.getContext) return;
+
+    var ctx = canvas.getContext("2d");
+    var VB_X = -20, VB_W = 440, VB_H = 640;
+    var GLASS = "M24 200A176 176 0 0 1 376 200V596H24Z";
+    var glassPath = typeof Path2D === "function" ? new Path2D(GLASS) : null;
+    var BLADE = 44; // half the squeegee blade length
+    var scale = 1;
+    var state = "dirty"; // dirty -> animating -> half -> finishing -> clean
+    var lastWipe = null;
+    var lastCheck = 0;
+
+    // Serpentine "fanning" passes, like a real window cleaner.
+    // x of 0 / 400 means "edge of the glass"; the squeegee itself is clamped inside the arch.
+    var TOP_PASSES = [[0, 64], [400, 64], [400, 146], [0, 146], [0, 228], [400, 228], [400, 310], [0, 310], [0, 372], [400, 372]];
+    var BOTTOM_PASSES = [[0, 458], [400, 458], [400, 540], [0, 540], [0, 576], [400, 576]];
+
+    squeegee.style.transition = "opacity .35s ease";
+
+    function rng(seed) {
+      return function () {
+        seed = (seed * 1664525 + 1013904223) % 4294967296;
+        return seed / 4294967296;
+      };
+    }
+
+    function setup() {
+      var rect = stage.getBoundingClientRect();
+      if (!rect.width) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      scale = canvas.width / VB_W;
+      redraw();
+    }
+
+    function toView() {
+      ctx.setTransform(scale, 0, 0, scale, -VB_X * scale, 0);
+    }
+
+    function paintGrime() {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      toView();
+      ctx.save();
+      if (glassPath) ctx.clip(glassPath);
+
+      var haze = ctx.createLinearGradient(0, 0, 0, 640);
+      haze.addColorStop(0, "rgba(176, 166, 146, 0.80)");
+      haze.addColorStop(0.55, "rgba(160, 147, 124, 0.84)");
+      haze.addColorStop(1, "rgba(132, 117, 94, 0.9)");
+      ctx.fillStyle = haze;
+      ctx.fillRect(0, 0, 400, 640);
+
+      var r = rng(7);
+      var i;
+      // grit and dust
+      for (i = 0; i < 2200; i++) {
+        var x = 24 + r() * 352, y = 20 + r() * 580, rad = 0.4 + r() * 1.6;
+        ctx.fillStyle = r() > 0.35
+          ? "rgba(86, 72, 54," + (0.15 + r() * 0.4).toFixed(2) + ")"
+          : "rgba(235, 229, 216," + (0.15 + r() * 0.3).toFixed(2) + ")";
+        ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
+      }
+      // dried water spots
+      ctx.lineWidth = 0.9;
+      for (i = 0; i < 80; i++) {
+        var sx = 30 + r() * 340, sy = 40 + r() * 550, sr = 2.5 + r() * 7;
+        ctx.fillStyle = "rgba(118, 102, 80, 0.16)";
+        ctx.strokeStyle = "rgba(244, 240, 232, 0.32)";
+        ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      }
+      // rain streaks
+      ctx.lineCap = "round";
+      for (i = 0; i < 30; i++) {
+        var tx = 30 + r() * 340, ty = 30 + r() * 420, len = 40 + r() * 140;
+        ctx.strokeStyle = "rgba(104, 88, 66, 0.22)";
+        ctx.lineWidth = 1.5 + r() * 2.5;
+        ctx.beginPath(); ctx.moveTo(tx, ty);
+        ctx.bezierCurveTo(tx + (r() - 0.5) * 8, ty + len * 0.33, tx + (r() - 0.5) * 8, ty + len * 0.66, tx + (r() - 0.5) * 6, ty + len);
+        ctx.stroke();
+      }
+      // grime gathers along the bottom of each sash
+      [[360, 396], [556, 596]].forEach(function (band) {
+        var g = ctx.createLinearGradient(0, band[0], 0, band[1]);
+        g.addColorStop(0, "rgba(96, 80, 60, 0)");
+        g.addColorStop(1, "rgba(96, 80, 60, 0.38)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, band[0], 400, band[1] - band[0]);
+      });
+      ctx.restore();
+    }
+
+    function eraseRect(x0, y0, x1, y1) {
+      toView();
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "#000";
+      ctx.fillRect(Math.min(x0, x1), Math.min(y0, y1), Math.abs(x1 - x0), Math.abs(y1 - y0));
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    function eraseStroke(a, b) {
+      toView();
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 64;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    // Erase the full band a set of passes covers, instantly
+    function erasePasses(passes) {
+      for (var i = 0; i < passes.length; i++) {
+        var y = passes[i][1];
+        eraseRect(0, y - BLADE, 400, y + BLADE);
+      }
+    }
+
+    function redraw() {
+      if (state === "clean") {
+        canvas.style.opacity = "0";
+        return;
+      }
+      paintGrime();
+      if (state === "half" || state === "finishing") erasePasses(TOP_PASSES);
+    }
+
+    // Where the squeegee can sit at height y without poking outside the glass
+    function glassSpan(y) {
+      var top = Math.max(y - BLADE + 6, 24);
+      if (top >= 200) return [28, 372];
+      var dy = 200 - top;
+      var dx = Math.sqrt(Math.max(176 * 176 - dy * dy, 0));
+      return [Math.max(200 - dx + 4, 28), Math.min(200 + dx - 4, 372)];
+    }
+
+    function placeSqueegee(x, y, dir) {
+      var span = glassSpan(y);
+      var cx = Math.min(Math.max(x, span[0]), span[1]);
+      squeegee.setAttribute("transform", "translate(" + cx.toFixed(1) + " " + y.toFixed(1) + ")");
+      flip.setAttribute("transform", dir < 0 ? "scale(-1 1)" : "");
+    }
+
+    function easeInOut(t) {
+      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    // Animate the squeegee along the passes, erasing as it goes
+    function runPasses(passes, duration, done) {
+      var segs = [], total = 0;
+      for (var i = 1; i < passes.length; i++) {
+        var a = passes[i - 1], b = passes[i];
+        var len = Math.abs(b[0] - a[0]) + Math.abs(b[1] - a[1]);
+        segs.push({ a: a, b: b, len: len, start: total });
+        total += len;
+      }
+      var dir = 1;
+      var prev = { x: passes[0][0], y: passes[0][1] };
+      placeSqueegee(prev.x, prev.y, dir);
+      squeegee.style.opacity = "1";
+      var t0 = null;
+
+      function frame(now) {
+        if (t0 === null) t0 = now;
+        var p = Math.min((now - t0) / duration, 1);
+        var dist = easeInOut(p) * total;
+        var seg = segs[segs.length - 1];
+        for (var j = 0; j < segs.length; j++) {
+          if (dist <= segs[j].start + segs[j].len) { seg = segs[j]; break; }
+        }
+        var f = seg.len ? Math.min(Math.max((dist - seg.start) / seg.len, 0), 1) : 1;
+        var x = seg.a[0] + (seg.b[0] - seg.a[0]) * f;
+        var y = seg.a[1] + (seg.b[1] - seg.a[1]) * f;
+        if (seg.b[0] !== seg.a[0]) dir = seg.b[0] > seg.a[0] ? 1 : -1;
+
+        // Sweep the area between the previous and current blade positions
+        if (Math.abs(y - prev.y) < 0.01) {
+          eraseRect(prev.x, y - BLADE, x, y + BLADE);
+        } else {
+          eraseRect(x - 6, Math.min(prev.y, y) - BLADE, x + 6, Math.max(prev.y, y) + BLADE);
+        }
+        // catch any skipped segment ends so bands are always complete
+        for (var k = 0; k < segs.length; k++) {
+          if (segs[k].start + segs[k].len < dist && !segs[k].done) {
+            segs[k].done = true;
+            if (segs[k].a[1] === segs[k].b[1]) eraseRect(0, segs[k].a[1] - BLADE, 400, segs[k].a[1] + BLADE);
+          }
+        }
+        prev = { x: x, y: y };
+        placeSqueegee(x, y, dir);
+
+        if (p < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          erasePasses(passes);
+          squeegee.style.opacity = "0";
+          if (done) done();
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function runGleam() {
+      if (reduceMotion || !gleam) return;
+      gleam.classList.remove("is-running");
+      // restart the animation
+      void gleam.getBoundingClientRect();
+      gleam.classList.add("is-running");
+    }
+
+    function setCaption(text, showButton) {
+      captionText.textContent = text;
+      finishBtn.hidden = !showButton;
+    }
+
+    function toHalf() {
+      state = "half";
+      stage.classList.toggle("is-wipeable", canHover);
+      if (canHover) {
+        setCaption("Top sash done. Wipe the bottom yourself, or", true);
+        finishBtn.textContent = "let us finish it";
+      } else {
+        setCaption("Top sash done with pure water.", true);
+        finishBtn.textContent = "Finish the window";
+      }
+    }
+
+    function toClean() {
+      state = "clean";
+      stage.classList.remove("is-wipeable");
+      canvas.style.transition = reduceMotion ? "none" : "opacity .6s ease";
+      canvas.style.opacity = "0";
+      runGleam();
+      setCaption("That's the pure-water finish.", false);
+    }
+
+    function finish() {
+      if (state !== "half") return;
+      state = "finishing";
+      finishBtn.hidden = true;
+      if (reduceMotion) { toClean(); return; }
+      runPasses(BOTTOM_PASSES, 1500, toClean);
+    }
+
+    function start() {
+      if (state !== "dirty") return;
+      if (reduceMotion) {
+        erasePasses(TOP_PASSES);
+        toHalf();
+        return;
+      }
+      state = "animating";
+      runPasses(TOP_PASSES, 2600, toHalf);
+    }
+
+    // Measure how much of the bottom sash has been wiped by hand
+    function bottomCleared() {
+      var x0 = Math.round((24 - VB_X) * scale), y0 = Math.round(418 * scale);
+      var w = Math.round(352 * scale), h = Math.round(176 * scale);
+      var data;
+      try { data = ctx.getImageData(x0, y0, w, h).data; } catch (err) { return 0; }
+      var step = 4 * 9, clear = 0, count = 0;
+      for (var i = 3; i < data.length; i += step) {
+        count++;
+        if (data[i] < 40) clear++;
+      }
+      return count ? clear / count : 0;
+    }
+
+    function viewPoint(e) {
+      var rect = canvas.getBoundingClientRect();
+      return {
+        x: (e.clientX - rect.left) / rect.width * VB_W + VB_X,
+        y: (e.clientY - rect.top) / rect.height * VB_H
+      };
+    }
+
+    canvas.addEventListener("pointermove", function (e) {
+      if (state !== "half" || e.pointerType !== "mouse") return;
+      var pt = viewPoint(e);
+      if (lastWipe) eraseStroke(lastWipe, pt);
+      lastWipe = pt;
+      var now = performance.now();
+      if (now - lastCheck > 250) {
+        lastCheck = now;
+        if (bottomCleared() > 0.62) toClean();
+      }
+    });
+    canvas.addEventListener("pointerleave", function () { lastWipe = null; });
+    canvas.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") finish();
+    });
+    finishBtn.addEventListener("click", finish);
+
+    if ("ResizeObserver" in window) {
+      var lastW = 0;
+      new ResizeObserver(function (entries) {
+        var w = entries[0].contentRect.width;
+        if (Math.abs(w - lastW) < 1) return;
+        lastW = w;
+        if (state === "animating" || state === "finishing") return; // repaint at the end instead
+        setup();
+      }).observe(stage);
+    }
+    setup();
+
+    // Start the clean once the window is properly in view
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          io.disconnect();
+          setTimeout(start, reduceMotion ? 0 : 650);
+        }
+      }, { threshold: 0.55 });
+      io.observe(stage);
+    } else {
+      start();
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     3. Quote form
+  ------------------------------------------------------------------ */
+  var form = document.querySelector("[data-quote-form]");
+  var successPanel = document.querySelector("[data-success]");
+  var statusEl = document.querySelector("[data-form-status]");
+  var submitBtn = document.querySelector("[data-submit]");
+  var ENDPOINT = "https://api.web3forms.com/submit";
+
+  // Postcode districts we usually cover; anything else gets a gentle note, not a block
+  var COVERED = ["CB1", "CB2", "CB3", "CB4", "CB5", "CB7", "CB8", "CB21", "CB22", "CB24", "CB25", "IP28"];
+  var POSTCODE_RE = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i;
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function field(name) { return form ? form.elements[name] : null; }
+
+  function showError(name, message) {
+    var err = document.getElementById("f-" + name + "-error");
+    var input = field(name);
+    if (err) { err.textContent = message; err.hidden = false; }
+    if (input && input.setAttribute) {
+      input.setAttribute("aria-invalid", "true");
+      if (err) input.setAttribute("aria-describedby", err.id);
+    }
+  }
+
+  function clearError(name) {
+    var err = document.getElementById("f-" + name + "-error");
+    var input = field(name);
+    if (err) err.hidden = true;
+    if (input && input.removeAttribute) {
+      input.removeAttribute("aria-invalid");
+      input.removeAttribute("aria-describedby");
+    }
+  }
+
+  function formatPostcode(value) {
+    var v = value.replace(/\s+/g, "").toUpperCase();
+    return v.length > 3 ? v.slice(0, -3) + " " + v.slice(-3) : v;
+  }
+
+  function validate() {
+    var firstBad = null;
+    function bad(name, msg, focusEl) {
+      showError(name, msg);
+      if (!firstBad) firstBad = focusEl || field(name);
+    }
+    var name = field("name").value.trim();
+    var phone = field("phone").value.trim();
+    var email = field("email").value.trim();
+    var postcode = field("postcode").value.trim();
+    var property = field("property").value;
+    var services = form.querySelectorAll('input[name="services"]:checked');
+
+    ["name", "phone", "email", "postcode", "property", "services"].forEach(clearError);
+
+    if (!name) bad("name", "Enter your name.");
+    if (!phone) bad("phone", "Enter a phone number so we can reach you.");
+    else if (phone.replace(/\D/g, "").length < 10) bad("phone", "Check the number. It looks a few digits short.");
+    if (email && !EMAIL_RE.test(email)) bad("email", "Check the email address, or leave it blank.");
+    if (!postcode) bad("postcode", "Enter your postcode.");
+    else if (!POSTCODE_RE.test(postcode)) bad("postcode", "Enter a full postcode, like CB8 8AB.");
+    if (!property) bad("property", "Choose the type of property.");
+    if (!services.length) bad("services", "Tick at least one thing you'd like cleaned.", form.querySelector('input[name="services"]'));
+
+    if (firstBad) firstBad.focus();
+    return !firstBad;
+  }
+
+  function showStatus(html) {
+    statusEl.innerHTML = html;
+    statusEl.hidden = false;
+  }
+
+  if (form) {
+    ["name", "phone", "email", "property"].forEach(function (n) {
+      field(n).addEventListener("input", function () { clearError(n); });
+    });
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "services") clearError("services");
+    });
+
+    var postcodeInput = field("postcode");
+    var postcodeHint = document.getElementById("f-postcode-hint");
+    postcodeInput.addEventListener("input", function () { clearError("postcode"); });
+    postcodeInput.addEventListener("blur", function () {
+      var v = postcodeInput.value.trim();
+      if (!v) { postcodeHint.hidden = true; return; }
+      if (POSTCODE_RE.test(v)) {
+        postcodeInput.value = formatPostcode(v);
+        var district = postcodeInput.value.split(" ")[0];
+        if (COVERED.indexOf(district) === -1) {
+          postcodeHint.textContent = "That's a little outside our usual area, but send it anyway and we'll let you know.";
+          postcodeHint.hidden = false;
+        } else {
+          postcodeHint.hidden = true;
+        }
+      }
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      statusEl.hidden = true;
+      if (!validate()) return;
+
+      var fd = new FormData(form);
+
+      // Honeypot ticked: quietly pretend it worked
+      if (fd.get("botcheck")) { showSuccess(); return; }
+
+      var data = {};
+      fd.forEach(function (value, key) {
+        if (key === "botcheck") return;
+        data[key] = data[key] ? data[key] + "; " + value : value;
+      });
+      if (!data.email) delete data.email;
+      data.postcode = formatPostcode(data.postcode || "");
+      data.subject = "New quote request: " + data.name + ", " + data.postcode;
+
+      if (!data.access_key || /^YOUR_/.test(data.access_key)) {
+        console.warn("Web3Forms access key missing. Paste it into the access_key field in index.html.");
+        showStatus("This form isn't connected yet. Add the Web3Forms access key to index.html (see README). Meanwhile, call <a href=\"tel:" + PHONE_TEL + "\">" + PHONE_DISPLAY + "</a>.");
+        return;
+      }
+
+      submitBtn.setAttribute("aria-busy", "true");
+      submitBtn.querySelector(".btn-label").textContent = "Sending";
+
+      var controller = "AbortController" in window ? new AbortController() : null;
+      var timer = controller ? setTimeout(function () { controller.abort(); }, 15000) : null;
+
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(data),
+        signal: controller ? controller.signal : undefined
+      })
+        .then(function (res) { return res.json().catch(function () { return { success: false }; }); })
+        .then(function (json) {
+          if (json && json.success) {
+            showSuccess(data.name, data.phone);
+          } else {
+            throw new Error((json && json.message) || "Send failed");
+          }
+        })
+        .catch(function () {
+          showStatus("Your request didn't send. Check your connection and try again, or call <a href=\"tel:" + PHONE_TEL + "\">" + PHONE_DISPLAY + "</a>.");
+        })
+        .then(function () {
+          if (timer) clearTimeout(timer);
+          submitBtn.removeAttribute("aria-busy");
+          submitBtn.querySelector(".btn-label").textContent = "Send my quote request";
+        });
+    });
+  }
+
+  function showSuccess(name, phone) {
+    var first = (name || "").trim().split(/\s+/)[0];
+    document.querySelector("[data-success-title]").textContent =
+      first ? "Thanks, " + first + ". Your request is in." : "Thanks. Your request is in.";
+    document.querySelector("[data-success-body]").textContent =
+      phone ? "We'll get back to you on " + phone + " with a price." : "We'll be in touch soon with a price.";
+    form.hidden = true;
+    successPanel.hidden = false;
+    successPanel.focus();
+  }
+
+  var resetBtn = document.querySelector("[data-reset]");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      form.reset();
+      document.getElementById("f-postcode-hint").hidden = true;
+      statusEl.hidden = true;
+      successPanel.hidden = true;
+      form.hidden = false;
+      field("name").focus();
+    });
+  }
+})();
