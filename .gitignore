@@ -1,1 +1,8 @@
 .DS_Store
+# Impeccable / Playwright working files
+.impeccable/review/
+.impeccable/live/
+.impeccable/config.local.json
+.playwright-mcp/
+.impeccable/questions/
+__pycache__/

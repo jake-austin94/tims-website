@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tim’s Window Cleaning | Window Cleaners in Newmarket &amp; Cambridge</title>
   <meta name="description" content="Pure-water window cleaning for homes and businesses from Newmarket to Cambridge. Regular 4 or 8-weekly rounds, conservatory roofs, gutters, fascias, soffits and solar panels. Free quotes.">
-  <meta name="theme-color" content="#1C2E4C">
+  <meta name="theme-color" content="#0E2A47">
 
   <!-- Social sharing preview (add your domain to og:url once it's live) -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Tim’s Window Cleaning | Newmarket &amp; Cambridge">
-  <meta property="og:description" content="Pure-water window cleaning from Newmarket to Cambridge. Get a free quote.">
+  <meta property="og:description" content="Pure-water window cleaning from Newmarket to Cambridge. Check your street is on the round and get a free quote.">
   <meta property="og:image" content="assets/og-image.png">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
@@ -18,8 +18,8 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-  <link rel="preload" href="assets/fonts/libre-caslon-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/hanken-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
 
   <script type="application/ld+json">
@@ -49,10 +49,11 @@
   <header class="site-header" data-header>
     <div class="wrap header-inner">
       <a class="brand" href="#top" aria-label="Tim’s Window Cleaning, back to top">
-        <svg class="brand-mark" viewBox="0 0 40 52" aria-hidden="true">
-          <path d="M3 20a17 17 0 0 1 34 0v29H3z" fill="none" stroke="currentColor" stroke-width="2.4"/>
-          <path d="M3 20h34M20 3v46M3 34h34" fill="none" stroke="currentColor" stroke-width="1.6"/>
-          <path d="M20 20 8.6 8.6M20 20l11.4-11.4" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="9" fill="#1F5FA8"/>
+          <path d="M11 33V18.5a9 9 0 0 1 18 0V33Z" fill="none" stroke="#FFFFFF" stroke-width="2.4"/>
+          <path d="M11 24.5h18M20 9.5V33" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+          <path d="M7 34.5h26" stroke="#FFFFFF" stroke-width="2.4"/>
         </svg>
         <span class="brand-text">
           <span class="brand-name">Tim’s</span>
@@ -62,20 +63,20 @@
 
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
-          <li><a href="#services">Services</a></li>
+          <li><a href="#services">What we clean</a></li>
           <li><a href="#pure-water">Pure water</a></li>
           <li><a href="#how-it-works">How it works</a></li>
-          <li><a href="#areas">Areas</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#areas">Where we work</a></li>
+          <li><a href="#faq">Questions</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
         <a class="header-phone" href="tel:+447799963390">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
           <span>07799 963390</span>
         </a>
-        <a class="btn btn-brass btn-sm header-cta" href="#quote">Get a free quote</a>
+        <a class="btn btn-ink btn-sm header-cta" href="#quote">Get a free quote</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
           <span class="nav-toggle-bars" aria-hidden="true"></span>
           <span class="visually-hidden">Menu</span>
@@ -87,16 +88,28 @@
   <main id="main">
 
     <!-- ============ HERO ============ -->
-    <section class="hero" id="top">
+    <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <h1>Clear windows, kept that way.</h1>
-          <p class="lede">Pure-water window cleaning for homes and businesses from Newmarket to Cambridge. A regular round every four or eight weeks, plus conservatory roofs, gutters, fascias and solar panels whenever they need it.</p>
-          <div class="hero-actions" data-hero-actions>
-            <a class="btn btn-brass btn-lg" href="#quote">Get a free quote</a>
-            <a class="btn btn-ghost btn-lg" href="tel:+447799963390">Call 07799 963390</a>
+        <div class="cover">
+          <h1 id="hero-title">Clear windows, kept that way.</h1>
+          <p class="lede">Pure-water window cleaning for homes and businesses from Newmarket to Cambridge, every four or eight weeks. Conservatory roofs, gutters, fascias and solar panels too.</p>
+
+          <form class="check" data-check novalidate>
+            <label class="check-label" for="c-postcode">Is your street on the round?</label>
+            <div class="check-row">
+              <input id="c-postcode" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters" placeholder="e.g. CB8 8AB" aria-describedby="c-result">
+              <button class="btn btn-ink" type="submit">Check</button>
+            </div>
+            <p class="check-result" id="c-result" data-check-result aria-live="polite"></p>
+          </form>
+
+          <div class="cover-actions" data-hero-actions>
+            <a class="btn btn-ink btn-lg" href="#quote">Get a free quote</a>
+            <a class="btn btn-line btn-lg" href="tel:+447799963390">Call 07799 963390</a>
           </div>
-          <p class="hero-note">Prefer to message? <a href="https://wa.me/447799963390?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20window%20cleaning." target="_blank" rel="noopener">Send us a WhatsApp</a>. Quotes are free, with no obligation.</p>
+          <p class="cover-note">Prefer to message? <a href="https://wa.me/447799963390?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20window%20cleaning." target="_blank" rel="noopener">Send us a WhatsApp</a>. Quotes are free, with no obligation.</p>
+
+          <p class="cover-places">Newmarket · Exning · Kentford · Burwell · Soham · Fordham · Bottisham · Fulbourn · Cherry Hinton · Cambridge</p>
         </div>
 
         <figure class="hero-window" data-window>
@@ -106,41 +119,37 @@
               <defs>
                 <clipPath id="glass-clip"><path d="M24 200A176 176 0 0 1 376 200V596H24Z"/></clipPath>
                 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#6F93B4"/>
-                  <stop offset=".42" stop-color="#A9C3D6"/>
-                  <stop offset=".7" stop-color="#E3D8C4"/>
-                  <stop offset=".8" stop-color="#F1D9AE"/>
+                  <stop offset="0" stop-color="#5E93C6"/>
+                  <stop offset=".42" stop-color="#A3C7E2"/>
+                  <stop offset=".7" stop-color="#E6E4D6"/>
+                  <stop offset=".8" stop-color="#F6DDB0"/>
                 </linearGradient>
                 <radialGradient id="sun-glow" cx="0.5" cy="0.5" r="0.5">
-                  <stop offset="0" stop-color="#FFF4DA" stop-opacity=".95"/>
+                  <stop offset="0" stop-color="#FFF6DE" stop-opacity=".95"/>
                   <stop offset=".35" stop-color="#FCE6BC" stop-opacity=".55"/>
                   <stop offset="1" stop-color="#F6D9A6" stop-opacity="0"/>
                 </radialGradient>
                 <linearGradient id="turf" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#8FA26E"/>
-                  <stop offset="1" stop-color="#5D7448"/>
+                  <stop offset="0" stop-color="#8CB065"/>
+                  <stop offset="1" stop-color="#557A3E"/>
                 </linearGradient>
               </defs>
               <g clip-path="url(#glass-clip)">
                 <rect x="0" y="0" width="400" height="640" fill="url(#sky)"/>
                 <g transform="translate(0 -100)">
                 <circle cx="282" cy="452" r="120" fill="url(#sun-glow)"/>
-                <circle cx="282" cy="452" r="26" fill="#FFF3D6"/>
-                <!-- distant tree line -->
-                <path d="M0 468c18-10 30-6 44-12s22-14 40-8 24 4 36-2 26-10 44-4 20 10 34 6 28-14 46-10 24 8 38 6 30-10 48-6 22 10 36 8 22-4 34 0V520H0Z" fill="#8A9CA7" opacity=".85"/>
-                <path d="M0 486c22-6 40 2 62-4s38-12 60-6 30 10 52 6 44-10 66-6 36 8 58 4 50-6 72 0 20 4 30 2V530H0Z" fill="#6E8579"/>
-                <!-- the Heath -->
+                <circle cx="282" cy="452" r="26" fill="#FFF5DA"/>
+                <path d="M0 468c18-10 30-6 44-12s22-14 40-8 24 4 36-2 26-10 44-4 20 10 34 6 28-14 46-10 24 8 38 6 30-10 48-6 22 10 36 8 22-4 34 0V520H0Z" fill="#8FA3AE" opacity=".85"/>
+                <path d="M0 486c22-6 40 2 62-4s38-12 60-6 30 10 52 6 44-10 66-6 36 8 58 4 50-6 72 0 20 4 30 2V530H0Z" fill="#6B8A76"/>
                 <path d="M0 500c60-10 120-8 200-4s150 4 200-2V760H0Z" fill="url(#turf)"/>
-                <path d="M0 528c80-8 170-10 260-6 60 3 100 2 140-2v14c-40 4-80 6-140 3-90-4-180-2-260 6Z" fill="#A7B585" opacity=".7"/>
-                <!-- white running rail -->
-                <g stroke="#F7F2E7" stroke-linecap="round">
+                <path d="M0 528c80-8 170-10 260-6 60 3 100 2 140-2v14c-40 4-80 6-140 3-90-4-180-2-260 6Z" fill="#B3C98A" opacity=".7"/>
+                <g stroke="#FFFFFF" stroke-linecap="round">
                   <path d="M0 556H400" stroke-width="3.2"/>
                   <path d="M0 568H400" stroke-width="2.4" opacity=".9"/>
                   <path d="M20 552v34M80 552v34M140 552v34M200 552v34M260 552v34M320 552v34M380 552v34" stroke-width="3"/>
                 </g>
                 </g>
-                <!-- birds -->
-                <g fill="none" stroke="#3E5570" stroke-width="2" stroke-linecap="round" opacity=".6">
+                <g fill="none" stroke="#2F4E6E" stroke-width="2" stroke-linecap="round" opacity=".6">
                   <path d="M118 236q6-6 12 0q6-6 12 0"/>
                   <path d="M150 262q4-4 8 0q4-4 8 0"/>
                 </g>
@@ -148,6 +157,7 @@
             </svg>
 
             <canvas class="window-grime" data-grime aria-hidden="true"></canvas>
+            <canvas class="window-water" data-water aria-hidden="true"></canvas>
 
             <!-- Frame, glazing bars and the squeegee -->
             <svg class="window-frame" viewBox="-20 0 440 640" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
@@ -155,7 +165,7 @@
                 <linearGradient id="gleam" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0" stop-color="#fff" stop-opacity="0"/>
                   <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
-                  <stop offset=".5" stop-color="#fff" stop-opacity=".55"/>
+                  <stop offset=".5" stop-color="#fff" stop-opacity=".6"/>
                   <stop offset=".55" stop-color="#fff" stop-opacity="0"/>
                   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
                 </linearGradient>
@@ -174,46 +184,41 @@
                 <rect class="gleam" data-gleam x="-400" y="-200" width="1200" height="1040" fill="url(#gleam)"/>
               </g>
 
-              <!-- outer frame -->
-              <path d="M0 200A200 200 0 0 1 400 200V620H0ZM24 200V596H376V200A176 176 0 0 0 24 200Z" fill="#F3EEE4" fill-rule="evenodd"/>
-              <path d="M24 200A176 176 0 0 1 376 200V596H24Z" fill="none" stroke="#C9BDA8" stroke-width="2.5"/>
-              <path d="M8 200A192 192 0 0 1 392 200" fill="none" stroke="#E2D9C8" stroke-width="1.5"/>
+              <!-- outer frame: painted white timber -->
+              <path d="M0 200A200 200 0 0 1 400 200V620H0ZM24 200V596H376V200A176 176 0 0 0 24 200Z" fill="#FFFFFF" fill-rule="evenodd"/>
+              
+              <path d="M24 200A176 176 0 0 1 376 200V596H24Z" fill="none" stroke="#C9D6E3" stroke-width="2.5"/>
 
-              <!-- fanlight -->
-              <g stroke="#F3EEE4" stroke-width="6" fill="none">
+              <g stroke="#FFFFFF" stroke-width="6" fill="none">
                 <path d="M144 200a56 56 0 0 1 112 0"/>
                 <path d="M151.5 172 47.6 112M172 151.5 112 47.6M200 144V24M228 151.5 288 47.6M248.5 172 352.4 112"/>
               </g>
-              <!-- upper sash bars -->
-              <g fill="#F3EEE4">
+              <g fill="#FFFFFF">
                 <rect x="24" y="196" width="352" height="9"/>
                 <rect x="138" y="200" width="7" height="200"/>
                 <rect x="255" y="200" width="7" height="200"/>
                 <rect x="24" y="297" width="352" height="7"/>
-                <!-- meeting rail -->
                 <rect x="20" y="394" width="360" height="22"/>
-                <!-- lower sash bars -->
                 <rect x="138" y="414" width="7" height="182"/>
                 <rect x="255" y="414" width="7" height="182"/>
                 <rect x="24" y="502" width="352" height="7"/>
               </g>
-              <rect x="20" y="413" width="360" height="3" fill="#D8CCB7"/>
-              <!-- brass sash lock -->
+              <rect x="20" y="413" width="360" height="3" fill="#DADAD4"/>
+              
               <g>
-                <rect x="186" y="398" width="28" height="9" rx="3" fill="#C69B57"/>
-                <circle cx="200" cy="402.5" r="2.2" fill="#8C6A35"/>
+                <rect x="186" y="398" width="28" height="9" rx="3" fill="#B9C6D3"/>
+                <circle cx="200" cy="402.5" r="2.2" fill="#6E7F91"/>
               </g>
-              <!-- stone sill -->
-              <rect x="-16" y="616" width="432" height="20" rx="2" fill="#E6DDCC"/>
-              <rect x="-16" y="616" width="432" height="4" fill="#F6F1E8"/>
+              <rect x="-16" y="616" width="432" height="20" rx="2" fill="#E3EAF1"/>
+              <rect x="-16" y="616" width="432" height="4" fill="#F7FAFC"/>
 
               <!-- squeegee (moved by script) -->
               <g class="squeegee" data-squeegee opacity="0">
                 <g data-squeegee-flip>
-                  <rect x="-62" y="-7" width="54" height="14" rx="7" fill="#B08443"/>
-                  <rect x="-66" y="-5" width="8" height="10" rx="3" fill="#8C6A35"/>
-                  <rect x="-10" y="-46" width="10" height="92" rx="2" fill="#C7CCD2"/>
-                  <rect x="0" y="-46" width="4" height="92" rx="1.5" fill="#22262B"/>
+                  <rect x="-62" y="-7" width="54" height="14" rx="7" fill="#1F5FA8"/>
+                  <rect x="-66" y="-5" width="8" height="10" rx="3" fill="#0E2A47"/>
+                  <rect x="-10" y="-46" width="10" height="92" rx="2" fill="#C7D2DD"/>
+                  <rect x="0" y="-46" width="4" height="92" rx="1.5" fill="#0E2A47"/>
                 </g>
               </g>
             </svg>
@@ -223,76 +228,73 @@
             <span data-caption-text>Run your cursor over the glass to clean it.</span>
             <button type="button" class="link-button" data-finish hidden>let Tim do it</button>
             <span class="window-reset">
-              <button type="button" class="btn btn-ghost btn-sm" data-dirty hidden>Make it dirty again</button>
+              <button type="button" class="btn btn-line btn-sm" data-dirty hidden>Make it dirty again</button>
             </span>
           </figcaption>
         </figure>
-      </div>
-
-      <div class="wrap hero-areas">
-        <p>Working across Newmarket, Exning, Kentford, Burwell, Soham, Fordham, Bottisham, Fulbourn, Cherry Hinton and Cambridge.</p>
       </div>
     </section>
 
     <!-- ============ SERVICES ============ -->
     <section class="section services" id="services" aria-labelledby="services-title">
-      <div class="wrap services-grid">
-        <div class="section-intro">
+      <div class="wrap">
+        <div class="section-head">
           <h2 id="services-title">What we clean</h2>
-          <p>Most customers start with their windows and add the rest when it needs doing. Ask about any mix of these in one quote.</p>
-          <a class="btn btn-navy" href="#quote">Get a free quote</a>
+          <p>Most customers start with their windows and add the rest when it needs doing. Tick anything you’d like priced and it goes straight onto your quote.</p>
         </div>
 
-        <ul class="service-list" role="list">
-          <li class="service service-lead">
-            <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18a14 14 0 0 1 28 0v24H10Z M10 30h28 M24 18v24 M10 18h28"/></svg>
-            <div>
+        <div class="key-panel">
+          <ul class="key" role="list">
+          <li class="key-row key-lead">
+            <svg class="key-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 52V28a14 14 0 0 1 28 0v24Z M18 40h28 M32 14v38 M18 28h28" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 54h40" stroke="currentColor" stroke-width="3"/></svg>
+            <div class="key-text">
               <h3>Windows, frames and sills</h3>
               <p>The heart of the round. Glass, frames and sills scrubbed and rinsed with pure water every four or eight weeks, upstairs windows included, all from the ground.</p>
-              <a class="service-link" href="#quote" data-service="Windows, frames and sills">Add to my quote</a>
             </div>
+            <button type="button" class="key-add" data-service="Windows, frames and sills" aria-pressed="true"><span class="key-box" aria-hidden="true"></span><span class="key-add-label">On my quote</span></button>
           </li>
-          <li class="service">
-            <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 40V24l18-12 18 12v16Z M6 24h36 M15 18v22 M24 12v28 M33 18v22"/></svg>
-            <div>
+          <li class="key-row">
+            <svg class="key-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 50V34l20-14 20 14v16Z M12 34h40 M22 27v23 M32 20v30 M42 27v23" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
+            <div class="key-text">
               <h3>Conservatory roofs</h3>
               <p>Moss, algae and leaf muck lifted off glass and polycarbonate roofs with soft brushes, so the room gets its light back.</p>
-              <a class="service-link" href="#quote" data-service="Conservatory roof">Add to my quote</a>
             </div>
+            <button type="button" class="key-add" data-service="Conservatory roof" aria-pressed="false"><span class="key-box" aria-hidden="true"></span><span class="key-add-label">Add to my quote</span></button>
           </li>
-          <li class="service">
-            <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 14h36v6a6 6 0 0 1-6 6H12a6 6 0 0 1-6-6Z M34 26v14 M34 44v0.5"/></svg>
-            <div>
+          <li class="key-row">
+            <svg class="key-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 20h44v6a8 8 0 0 1-8 8H18a8 8 0 0 1-8-8Z M44 34v16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M44 54v2" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+            <div class="key-text">
               <h3>Gutter clearing</h3>
               <p>Gutters emptied and downpipes checked, so rainwater goes where it should and not down your walls.</p>
-              <a class="service-link" href="#quote" data-service="Gutter clearing">Add to my quote</a>
             </div>
+            <button type="button" class="key-add" data-service="Gutter clearing" aria-pressed="false"><span class="key-box" aria-hidden="true"></span><span class="key-add-label">Add to my quote</span></button>
           </li>
-          <li class="service">
-            <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 26 24 8l20 18 M10 22v4h28v-4 M10 30h28"/></svg>
-            <div>
+          <li class="key-row">
+            <svg class="key-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 34 32 14l24 20 M14 30v6h36v-6 M14 42h36" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></svg>
+            <div class="key-text">
               <h3>Fascias and soffits</h3>
               <p>The boards along your roofline, washed back to their proper colour. Pairs well with a gutter clear.</p>
-              <a class="service-link" href="#quote" data-service="Fascias and soffits">Add to my quote</a>
             </div>
+            <button type="button" class="key-add" data-service="Fascias and soffits" aria-pressed="false"><span class="key-box" aria-hidden="true"></span><span class="key-add-label">Add to my quote</span></button>
           </li>
-          <li class="service">
-            <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34 14 12h26l-6 22Z M11 23h26 M21 12l-4 22 M31 12l-4 22 M24 34v8 M17 42h14"/></svg>
-            <div>
+          <li class="key-row">
+            <svg class="key-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 42 18 18h32l-6 24Z M15 30h32 M27 18l-4 24 M39 18l-4 24 M32 42v10 M24 52h16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
+            <div class="key-text">
               <h3>Solar panels</h3>
               <p>Grimy panels make less electricity. We wash them with pure water that leaves nothing behind on the glass.</p>
-              <a class="service-link" href="#quote" data-service="Solar panels">Add to my quote</a>
             </div>
+            <button type="button" class="key-add" data-service="Solar panels" aria-pressed="false"><span class="key-box" aria-hidden="true"></span><span class="key-add-label">Add to my quote</span></button>
           </li>
-          <li class="service service-wide">
-            <svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 18 10 8h28l4 10 M6 18a6 6 0 0 0 12 0 6 6 0 0 0 12 0 6 6 0 0 0 12 0 M9 24v18h30V24 M15 42V30h8v12 M28 30h7v6h-7Z"/></svg>
-            <div>
+          <li class="key-row">
+            <svg class="key-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 26 14 14h36l4 12 M10 26a7 7 0 0 0 14 0 7 7 0 0 0 16 0 7 7 0 0 0 14 0 M14 32v20h36V32 M22 52V40h9v12 M36 40h9v7h-9Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
+            <div class="key-text">
               <h3>Shops and offices</h3>
               <p>Shopfronts, offices and small commercial units, cleaned on a schedule that works around your opening hours.</p>
-              <a class="service-link" href="#quote" data-service="Commercial premises">Add to my quote</a>
             </div>
+            <button type="button" class="key-add" data-service="Commercial premises" aria-pressed="false"><span class="key-box" aria-hidden="true"></span><span class="key-add-label">Add to my quote</span></button>
           </li>
-        </ul>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -301,66 +303,56 @@
       <div class="wrap pure-grid">
         <div class="pure-copy">
           <h2 id="pure-title">Why we clean with pure water</h2>
-          <p class="pure-lede">Tap water carries dissolved minerals, and that's what leaves spots when it dries. We filter ours down to nothing but water, scrub the glass and frames with a soft brush on a long pole, then rinse. With nothing left in the water to mark the glass, it dries clear on its own.</p>
+          <p class="pure-lede">Tap water carries dissolved minerals, and that’s what leaves spots when it dries. We filter ours down to nothing but water, scrub the glass and frames with a soft brush on a long pole, then rinse. With nothing left in the water to mark the glass, it dries clear on its own.</p>
 
           <dl class="pure-points">
             <div>
-              <dt>No ladders against your house</dt>
+              <dt><span class="callout" aria-hidden="true">A</span>No ladders against your house</dt>
               <dd>Upstairs windows are cleaned from the ground. Nothing leans on your gutters or squashes your borders.</dd>
             </div>
             <div>
-              <dt>No soap or chemicals</dt>
-              <dd>Only water touches your windows, so it's safe around plants, pets and ponds.</dd>
+              <dt><span class="callout" aria-hidden="true">B</span>No soap or chemicals</dt>
+              <dd>Only water touches your windows, so it’s safe around plants, pets and ponds.</dd>
             </div>
             <div>
-              <dt>Frames come up clean too</dt>
+              <dt><span class="callout" aria-hidden="true">C</span>Frames come up clean too</dt>
               <dd>The brush works across frames and sills as well as the glass, so the whole window looks cared for.</dd>
             </div>
           </dl>
-          <a class="btn btn-brass" href="#quote">Get a free quote</a>
         </div>
 
         <figure class="pure-diagram">
-          <svg viewBox="0 0 540 500" role="img" aria-labelledby="diagram-title diagram-desc">
+          <svg viewBox="0 0 540 520" role="img" aria-labelledby="diagram-title diagram-desc">
             <title id="diagram-title">How a water-fed pole cleans an upstairs window</title>
-            <desc id="diagram-desc">A cleaner stands on the ground holding a long pole. Filtered water from a small unit travels up the pole to a brush that scrubs and rinses an upstairs sash window.</desc>
-            <g fill="none" stroke="#EEE7DA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <!-- house -->
-              <path d="M30 440V80L150 24l120 56v360" opacity=".5"/>
-              <path d="M10 440h520" opacity=".5"/>
-              <!-- upstairs sash -->
-              <rect x="100" y="110" width="100" height="130" rx="2"/>
-              <path d="M100 175h100M133 110v130M167 110v130M100 142h100M100 208h100" opacity=".7"/>
-              <!-- downstairs sash -->
-              <rect x="100" y="300" width="100" height="110" rx="2" opacity=".5"/>
-              <path d="M100 355h100M150 300v110" opacity=".4"/>
-              <!-- pure water unit + hose -->
-              <rect x="466" y="410" width="48" height="30" rx="4" stroke="#BFD5E3"/>
-              <path d="M478 410v-8h24v8" stroke="#BFD5E3"/>
-              <path d="M418 404c4 22 26 30 48 22" stroke="#BFD5E3"/>
-              <!-- pole -->
-              <path d="M418 404 206 162" stroke="#D2B07A" stroke-width="3.2"/>
-              <!-- brush head -->
-              <rect x="176" y="151" width="56" height="18" rx="4" transform="rotate(-41.3 204 160)" stroke="#D2B07A" stroke-width="2.2"/>
-              <!-- spray -->
-              <g stroke="#BFD5E3" stroke-width="1.6">
-                <path d="M188 150q-12 2-20 12"/>
-                <path d="M194 166q-10 8-12 18"/>
-                <path d="M186 138q-12-2-22 4"/>
-              </g>
-              <!-- cleaner -->
-              <circle cx="432" cy="368" r="10"/>
-              <path d="M432 378v38M432 416l-9 24M432 416l9 24M432 390l-14 14M432 390l-8 20"/>
+            <desc id="diagram-desc">Tim stands on the ground holding a long pole (A). Filtered water from a small unit (B) travels up the pole to a brush that scrubs and rinses an upstairs sash window, frame and all (C).</desc>
+            <!-- ground and house -->
+            <path d="M0 450h540" stroke="#E8F1FA" stroke-width="2"/>
+            <path d="M0 458h540" stroke="#5FA8E0" stroke-width="10" opacity=".2"/>
+            <path d="M40 450V100l120-60 120 60v350" fill="none" stroke="#E8F1FA" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="105" y="130" width="110" height="140" fill="rgba(95,168,224,.18)" stroke="#E8F1FA" stroke-width="2"/>
+            <path d="M105 200h110M141.7 130v140M178.3 130v140M105 165h110M105 235h110" stroke="#E8F1FA" stroke-width="1.2"/>
+            <rect x="105" y="320" width="110" height="110" fill="rgba(95,168,224,.18)" stroke="#E8F1FA" stroke-width="2"/>
+            <path d="M105 375h110M160 320v110" stroke="#E8F1FA" stroke-width="1.2"/>
+            <!-- water unit and hose -->
+            <rect x="460" y="414" width="56" height="36" rx="4" fill="#5FA8E0"/>
+            <path d="M472 414v-8h32v8" fill="none" stroke="#8FC5EE" stroke-width="3"/>
+            <path d="M412 410c6 26 30 36 48 24" fill="none" stroke="#8FC5EE" stroke-width="3"/>
+            <!-- pole with water inside -->
+            <path d="M414 408 222 176" stroke="#E8F1FA" stroke-width="6" stroke-linecap="round"/>
+            <path class="pole-water" d="M414 408 222 176" stroke="#7FC1EA" stroke-width="2.4" stroke-linecap="round"/>
+            <rect x="192" y="164" width="60" height="20" rx="4" transform="rotate(-50.4 222 174)" fill="#5FA8E0" stroke="#E8F1FA" stroke-width="2"/>
+            <g stroke="#8FC5EE" stroke-width="2.2" fill="none" stroke-linecap="round">
+              <path d="M204 160q-14 2-22 14"/>
+              <path d="M210 180q-10 10-12 22"/>
+              <path d="M202 146q-14-4-24 2"/>
             </g>
-            <g class="diagram-labels" fill="#EEE7DA" font-family="Hanken Grotesk, sans-serif" font-size="15">
-              <text x="292" y="104">Brush scrubs glass and frames,</text>
-              <text x="292" y="124" fill-opacity=".72">pure water rinses it clean</text>
-              <text x="530" y="474" text-anchor="end">Filtered to zero dissolved solids</text>
-            </g>
-            <g class="diagram-labels" stroke="#D2B07A" stroke-width="1" fill="none">
-              <path d="M286 112h-10l-46 34"/>
-              <path d="M490 446v10"/>
-            </g>
+            <!-- Tim -->
+            <circle cx="428" cy="366" r="11" fill="none" stroke="#E8F1FA" stroke-width="2"/>
+            <path d="M428 377v40M428 417l-10 32M428 417l10 32M428 390l-12 14M428 390l-6 18" fill="none" stroke="#E8F1FA" stroke-width="2.4" stroke-linecap="round"/>
+            <!-- callouts -->
+            <g class="diagram-callout"><path d="M392 330 380 300"/><circle cx="374" cy="286" r="15"/><text x="374" y="292">A</text></g>
+            <g class="diagram-callout"><path d="M488 412V384"/><circle cx="488" cy="368" r="15"/><text x="488" y="374">B</text></g>
+            <g class="diagram-callout"><path d="M218 140 252 96"/><circle cx="262" cy="82" r="15"/><text x="262" y="88">C</text></g>
           </svg>
         </figure>
       </div>
@@ -371,32 +363,32 @@
       <div class="wrap">
         <div class="section-head">
           <h2 id="steps-title">How it works</h2>
-          <p>From first message to a regular round in four steps.</p>
+          <p>From your first message to a regular round, in four stops.</p>
         </div>
-        <ol class="step-list" role="list">
-          <li class="step">
-            <span class="step-num" aria-hidden="true">1</span>
+        <ol class="route" role="list">
+          <li class="stop">
+            <span class="stop-mark" aria-hidden="true">1</span>
             <h3>Ask for a quote</h3>
-            <p>Fill in the form, call or send a WhatsApp. Tell us roughly what your property is like and what you'd like cleaned.</p>
+            <p>Fill in the form, call or send a WhatsApp. Tell us roughly what your property is like and what you’d like cleaned.</p>
           </li>
-          <li class="step">
-            <span class="step-num" aria-hidden="true">2</span>
+          <li class="stop">
+            <span class="stop-mark" aria-hidden="true">2</span>
             <h3>Get your price</h3>
-            <p>We'll come back with a price for your property. If we need to see it first, we'll pop round. No obligation either way.</p>
+            <p>We’ll come back with a price for your property. If we need to see it first, we’ll pop round. No obligation either way.</p>
           </li>
-          <li class="step">
-            <span class="step-num" aria-hidden="true">3</span>
+          <li class="stop">
+            <span class="stop-mark" aria-hidden="true">3</span>
             <h3>First clean</h3>
-            <p>We'll book a day that suits you. You don't need to be in, as long as we can get round the back.</p>
+            <p>We’ll book a day that suits you. You don’t need to be in, as long as we can get round the back.</p>
           </li>
-          <li class="step">
-            <span class="step-num" aria-hidden="true">4</span>
+          <li class="stop">
+            <span class="stop-mark" aria-hidden="true">4</span>
             <h3>Stay on the round</h3>
-            <p>Choose every four or eight weeks and we'll let you know before each visit. Change or pause it whenever you like.</p>
+            <p>Every four or eight weeks, and we’ll let you know before each visit. Change or pause it whenever you like.</p>
           </li>
         </ol>
         <div class="steps-cta">
-          <a class="btn btn-navy btn-lg" href="#quote">Start with a free quote</a>
+          <a class="btn btn-ink btn-lg" href="#quote">Start with a free quote</a>
           <p>or call <a href="tel:+447799963390">07799 963390</a></p>
         </div>
       </div>
@@ -407,49 +399,45 @@
       <div class="wrap areas-grid">
         <div class="areas-copy">
           <h2 id="areas-title">Where we work</h2>
-          <p>Based in Newmarket and working west to Cambridge, with the villages in between. Nearby but not on the list? Ask anyway. If we're already on your street, we'll fit you in.</p>
+          <p>Based in Newmarket and working west to Cambridge, with the villages in between. Nearby but not on the list? Ask anyway. If we’re already on your street, we’ll fit you in.</p>
           <ul class="town-list" role="list">
-            <li>Newmarket</li><li>Exning</li><li>Kentford</li><li>Burwell</li><li>Soham</li>
-            <li>Fordham</li><li>Bottisham</li><li>Fulbourn</li><li>Cherry Hinton</li><li>Cambridge</li>
+              <li>Newmarket</li>
+              <li>Exning</li>
+              <li>Kentford</li>
+              <li>Burwell</li>
+              <li>Soham</li>
+              <li>Fordham</li>
+              <li>Bottisham</li>
+              <li>Fulbourn</li>
+              <li>Cherry Hinton</li>
+              <li>Cambridge</li>
           </ul>
-          <a class="btn btn-navy" href="#quote">Check we cover you</a>
+          <a class="btn btn-ink" href="#quote">Check we cover you</a>
         </div>
-
         <figure class="area-map">
-          <svg viewBox="0 0 600 431" role="img" aria-labelledby="map-title map-desc">
-            <title id="map-title">Map of the area we cover</title>
-            <desc id="map-desc">Ten towns and villages between Newmarket in the east and Cambridge in the west, roughly thirteen miles apart.</desc>
-            <defs>
-              <radialGradient id="map-fade" cx="414" cy="245" r="300" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="#1C2E4C" stop-opacity=".09"/>
-                <stop offset="1" stop-color="#1C2E4C" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <circle cx="414" cy="245" r="300" fill="url(#map-fade)"/>
-            <!-- distance rings from Newmarket -->
-            <g fill="none" stroke="#1C2E4C" stroke-opacity=".22" stroke-dasharray="3 6">
-              <circle cx="414" cy="245" r="142"/>
-              <circle cx="414" cy="245" r="284"/>
-            </g>
-            <g class="map-ring-label" font-family="Hanken Grotesk, sans-serif" font-size="12" fill="#55607A">
-              <text x="414" y="96" text-anchor="middle">5 miles</text>
-              <text x="190" y="40" text-anchor="middle">10 miles</text>
-            </g>
-            <!-- A14 / A1303 corridor -->
-            <path d="M74 323C120 312 170 300 240 290S360 262 414 245s80-36 114-49" fill="none" stroke="#B08443" stroke-width="2" stroke-opacity=".55"/>
-            <g class="map-labels" font-family="Hanken Grotesk, sans-serif" font-size="15" fill="#1A2438">
-              <g class="map-town"><circle cx="74" cy="323" r="7"/><text x="74" y="350" text-anchor="middle" font-weight="600">Cambridge</text></g>
-              <g class="map-town"><circle cx="139" cy="363" r="5"/><text x="150" y="392" text-anchor="end">Cherry Hinton</text></g>
-              <g class="map-town"><circle cx="196" cy="372" r="5"/><text x="184" y="398" text-anchor="start">Fulbourn</text></g>
-              <g class="map-town"><circle cx="240" cy="290" r="5"/><text x="226" y="272" text-anchor="middle">Bottisham</text></g>
-              <g class="map-town"><circle cx="320" cy="188" r="5"/><text x="306" y="170" text-anchor="middle">Burwell</text></g>
-              <g class="map-town"><circle cx="398" cy="116" r="5"/><text x="412" y="121" text-anchor="start">Fordham</text></g>
-              <g class="map-town"><circle cx="332" cy="73" r="5"/><text x="318" y="78" text-anchor="end">Soham</text></g>
-              <g class="map-town"><circle cx="378" cy="204" r="5"/><text x="386" y="189" text-anchor="start">Exning</text></g>
-              <g class="map-town"><circle cx="528" cy="196" r="5"/><text x="528" y="178" text-anchor="middle">Kentford</text></g>
-              <g class="map-town map-home"><circle cx="414" cy="245" r="9"/><circle cx="414" cy="245" r="16" fill="none" stroke="#B08443" stroke-width="1.5"/><text x="414" y="282" text-anchor="middle" font-weight="600">Newmarket</text></g>
-            </g>
-          </svg>
+<svg class="area-map-svg" viewBox="-10 40 830 520" role="img" aria-labelledby="map-title map-desc">
+<title id="map-title">Map of the area we cover</title>
+<desc id="map-desc">Ten towns and villages between Newmarket in the east and Cambridge in the west, shown at their real positions, with rings at five and ten miles from Newmarket.</desc>
+<defs><radialGradient id="area-glow" cx="550" cy="350" r="420" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5FA8E0" stop-opacity=".18"/><stop offset="1" stop-color="#5FA8E0" stop-opacity="0"/></radialGradient></defs>
+<circle cx="550" cy="350" r="420" fill="url(#area-glow)"/>
+<path class="a-round" d="M35.0 500.0C43.3 523.3 72.5 549.2 100.0 560.0C127.5 570.8 169.2 566.7 200.0 565.0C230.8 563.3 260.0 566.7 285.0 550.0C310.0 533.3 326.7 490.0 350.0 465.0C373.3 440.0 391.7 411.7 425.0 400.0C458.3 388.3 510.0 404.2 550.0 395.0C590.0 385.8 633.3 363.3 665.0 345.0C696.7 326.7 731.7 304.2 740.0 285.0C748.3 265.8 740.0 245.0 715.0 230.0C690.0 215.0 618.3 210.8 590.0 195.0C561.7 179.2 565.8 157.5 545.0 135.0C524.2 112.5 491.7 70.0 465.0 60.0C438.3 50.0 402.5 53.3 385.0 75.0C367.5 96.7 380.0 142.5 360.0 190.0C340.0 237.5 299.2 323.3 265.0 360.0C230.8 396.7 190.8 400.0 155.0 410.0C119.2 420.0 70.0 405.0 50.0 420.0C30.0 435.0 26.7 476.7 35.0 500.0Z"/>
+<path class="a-river" d="M37.5 495.0C44.6 489.2 65.4 473.3 80.0 460.0C94.6 446.7 108.3 435.0 125.0 415.0C141.7 395.0 163.3 366.7 180.0 340.0C196.7 313.3 211.7 285.0 225.0 255.0C238.3 225.0 249.2 192.5 260.0 160.0C270.8 127.5 281.7 90.8 290.0 60.0C298.3 29.2 306.7 -10.8 310.0 -25.0"/>
+<circle class="a-ring" cx="550" cy="350" r="201"/>
+<text class="a-ring-label" x="651" y="170" text-anchor="middle">5 miles</text>
+<circle class="a-ring" cx="550" cy="350" r="402"/>
+<text class="a-ring-label" x="751" y="-4" text-anchor="middle">10 miles</text>
+<g class="a-town a-town-big"><circle cx="75" cy="475" r="7"/><text x="88" y="481" text-anchor="start">Cambridge</text></g>
+<g class="a-town"><circle cx="150" cy="525" r="5"/><text x="150" y="555" text-anchor="middle">Cherry Hinton</text></g>
+<g class="a-town"><circle cx="250" cy="525" r="5"/><text x="261" y="531" text-anchor="start">Fulbourn</text></g>
+<g class="a-town"><circle cx="300" cy="425" r="5"/><text x="300" y="455" text-anchor="middle">Bottisham</text></g>
+<g class="a-town"><circle cx="400" cy="275" r="5"/><text x="389" y="269" text-anchor="end">Burwell</text></g>
+<g class="a-town"><circle cx="425" cy="100" r="5"/><text x="414" y="106" text-anchor="end">Soham</text></g>
+<g class="a-town"><circle cx="525" cy="175" r="5"/><text x="536" y="181" text-anchor="start">Fordham</text></g>
+<g class="a-town"><circle cx="500" cy="300" r="5"/><text x="489" y="291" text-anchor="end">Exning</text></g>
+<g class="a-town a-home"><circle class="a-home-ring" cx="550" cy="350" r="17"/><circle cx="550" cy="350" r="9"/><text x="574" y="356" text-anchor="start">Newmarket</text></g>
+<g class="a-town"><circle cx="700" cy="275" r="5"/><text x="700" y="305" text-anchor="middle">Kentford</text></g>
+</svg>
+          
         </figure>
       </div>
     </section>
@@ -472,19 +460,18 @@
     <!-- ============ FAQ ============ -->
     <section class="section faq" id="faq" aria-labelledby="faq-title">
       <div class="wrap faq-grid">
-        <div class="section-intro">
+        <div class="section-head">
           <h2 id="faq-title">Questions people ask</h2>
           <p>Anything else, just ask. A quick call or WhatsApp is usually the fastest way.</p>
-          <a class="btn btn-navy" href="#quote">Get a free quote</a>
         </div>
         <div class="faq-list">
           <details>
             <summary>Do I need to be home?</summary>
-            <p>No. As long as we can get to the back of the house, an unlocked side gate is fine, we can clean while you're out. We'll let you know when we've been.</p>
+            <p>No. As long as we can get to the back of the house, an unlocked side gate is fine, we can clean while you’re out. We’ll let you know when we’ve been.</p>
           </details>
           <details>
             <summary>How do you clean upstairs windows without a ladder?</summary>
-            <p>With a water-fed pole. It's a long, lightweight pole with a soft brush on the end, fed with filtered water. We scrub and rinse from the ground, which is safer for us and means nothing leans against your property.</p>
+            <p>With a water-fed pole. It’s a long, lightweight pole with a soft brush on the end, fed with filtered water. We scrub and rinse from the ground, which is safer for us and means nothing leans against your property.</p>
           </details>
           <details>
             <summary>How often should my windows be cleaned?</summary>
@@ -492,19 +479,19 @@
           </details>
           <details>
             <summary>What happens if it rains?</summary>
-            <p>Light rain doesn't spoil a pure-water clean. Rain usually leaves marks because it sticks to dirt already on the glass, and we've taken that away. We only reschedule for heavy rain, high winds or frost.</p>
+            <p>Light rain doesn’t spoil a pure-water clean. Rain usually leaves marks because it sticks to dirt already on the glass, and we’ve taken that away. We only reschedule for heavy rain, high winds or frost.</p>
           </details>
           <details>
             <summary>Is it safe for plants and pets?</summary>
-            <p>Yes. We don't use soap or chemicals, only filtered water, so there's nothing harmful running off into your borders, lawn or pond.</p>
+            <p>Yes. We don’t use soap or chemicals, only filtered water, so there’s nothing harmful running off into your borders, lawn or pond.</p>
           </details>
           <details>
             <summary>Do you clean conservatory roofs, gutters and solar panels on the same visit?</summary>
-            <p>Often, yes. Tick everything you're interested in on the quote form and we'll price it together and book it in the way that makes most sense for you.</p>
+            <p>Often, yes. Tick everything you’re interested in on the quote form and we’ll price it together and book it in the way that makes most sense for you.</p>
           </details>
           <details>
             <summary>How do I pay?</summary>
-            <p>We'll go through payment options when we send your quote, so you can pick whatever's easiest.</p>
+            <p>We’ll go through payment options when we send your quote, so you can pick whatever’s easiest.</p>
           </details>
         </div>
       </div>
@@ -515,16 +502,16 @@
       <div class="wrap quote-grid">
         <div class="quote-copy">
           <h2 id="quote-title">Get a free quote</h2>
-          <p>Tell us a little about your property and what you'd like cleaned. We'll get back to you with a price. There's no obligation.</p>
+          <p>Tell us a little about your property and what you’d like cleaned. We’ll get back to you with a price. There’s no obligation.</p>
 
           <div class="direct-contact">
             <p class="direct-label">Rather talk?</p>
             <a class="direct-link" href="tel:+447799963390">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
               <span>Call 07799 963390</span>
             </a>
             <a class="direct-link" href="https://wa.me/447799963390?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20window%20cleaning." target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 19Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .4-.1.6l-.5.6c.6 1.2 1.6 2.1 2.8 2.7l.6-.6c.2-.2.4-.2.6-.1l1.5.7c.2.1.3.3.3.5v.5c0 .4-.2.7-.6.9-.8.4-2.5.3-4.4-1.4-1.8-1.6-2.8-3.6-2.6-4.8Z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 19Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .4-.1.6l-.5.6c.6 1.2 1.6 2.1 2.8 2.7l.6-.6c.2-.2.4-.2.6-.1l1.5.7c.2.1.3.3.3.5v.5c0 .4-.2.7-.6.9-.8.4-2.5.3-4.4-1.4-1.8-1.6-2.8-3.6-2.6-4.8Z" fill="currentColor"/></svg>
               <span>WhatsApp us</span>
             </a>
           </div>
@@ -609,18 +596,18 @@
               <textarea id="f-message" name="message" rows="3" placeholder="Side gate code, a dog in the garden, best time to call…"></textarea>
             </div>
 
-            <button class="btn btn-navy btn-lg btn-block" type="submit" data-submit>
+            <button class="btn btn-ink btn-lg btn-block" type="submit" data-submit>
               <span class="btn-label">Send my quote request</span>
             </button>
             <p class="form-status" data-form-status role="alert" hidden></p>
-            <p class="form-privacy">We'll only use your details to reply about your quote.</p>
+            <p class="form-privacy">We’ll only use your details to reply about your quote.</p>
           </form>
 
           <div class="quote-success" data-success hidden tabindex="-1">
-            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 33l8 8 16-17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M20 33l8 8 16-17" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <h3 data-success-title>Thanks. Your request is in.</h3>
-            <p data-success-body>We'll be in touch soon with a price.</p>
-            <p>If it's urgent, call or WhatsApp <a href="tel:+447799963390">07799 963390</a>.</p>
+            <p data-success-body>We’ll be in touch soon with a price.</p>
+            <p>If it’s urgent, call or WhatsApp <a href="tel:+447799963390">07799 963390</a>.</p>
             <button type="button" class="link-button" data-reset>Send another request</button>
           </div>
         </div>
@@ -633,10 +620,11 @@
     <div class="wrap footer-grid">
       <div class="footer-brand">
         <a class="brand" href="#top" aria-label="Tim’s Window Cleaning, back to top">
-          <svg class="brand-mark" viewBox="0 0 40 52" aria-hidden="true">
-            <path d="M3 20a17 17 0 0 1 34 0v29H3z" fill="none" stroke="currentColor" stroke-width="2.4"/>
-            <path d="M3 20h34M20 3v46M3 34h34" fill="none" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M20 20 8.6 8.6M20 20l11.4-11.4" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <rect width="40" height="40" rx="9" fill="#FFFFFF"/>
+            <path d="M11 33V18.5a9 9 0 0 1 18 0V33Z" fill="none" stroke="#1F5FA8" stroke-width="2.4"/>
+            <path d="M11 24.5h18M20 9.5V33" fill="none" stroke="#1F5FA8" stroke-width="1.6"/>
+            <path d="M7 34.5h26" stroke="#1F5FA8" stroke-width="2.4"/>
           </svg>
           <span class="brand-text">
             <span class="brand-name">Tim’s</span>
@@ -656,11 +644,11 @@
       <div>
         <h2 class="footer-heading">On this page</h2>
         <ul class="footer-links" role="list">
-          <li><a href="#services">Services</a></li>
+          <li><a href="#services">What we clean</a></li>
           <li><a href="#pure-water">Pure water</a></li>
           <li><a href="#how-it-works">How it works</a></li>
-          <li><a href="#areas">Areas</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#areas">Where we work</a></li>
+          <li><a href="#faq">Questions</a></li>
         </ul>
       </div>
     </div>
@@ -672,11 +660,11 @@
   <!-- Mobile quick-contact bar -->
   <div class="action-bar" data-action-bar>
     <a href="tel:+447799963390">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
       Call
     </a>
     <a href="https://wa.me/447799963390?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20window%20cleaning." target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 19Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 19Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
       WhatsApp
     </a>
     <a class="action-bar-primary" href="#quote">Free quote</a>

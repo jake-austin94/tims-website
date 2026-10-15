@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T00:09:32.980294+00:00",
+  "title": "Design System: Tim's Window Cleaning",
+  "extensions": {
+    "colorMeta": {
+      "window-blue": {
+        "role": "primary",
+        "displayName": "Window Blue",
+        "tonalRamp": [
+          "#0A2240",
+          "#0F3463",
+          "#174C88",
+          "#1F5FA8",
+          "#3C8AD8",
+          "#8FC5EE",
+          "#D6E9F8",
+          "#F3F8FC"
+        ]
+      },
+      "harbour-navy-800": {
+        "role": "neutral",
+        "displayName": "Harbour Navy",
+        "tonalRamp": [
+          "#071A2E",
+          "#0B2340",
+          "#0E2A47",
+          "#163A60",
+          "#2B5179",
+          "#5D7A98",
+          "#AFC4D9",
+          "#E8F1FA"
+        ]
+      },
+      "sky": {
+        "role": "secondary",
+        "displayName": "Sky",
+        "tonalRamp": [
+          "#1D4E78",
+          "#2F6E9F",
+          "#4E8FC4",
+          "#6FAADB",
+          "#8FC5EE",
+          "#B3D8F4",
+          "#D6E9F8",
+          "#EEF6FC"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card",
+        "value": "0 1px 2px rgba(11,35,64,.06), 0 12px 32px -8px rgba(11,35,64,.14)",
+        "purpose": "Services and area-map cards."
+      },
+      {
+        "name": "quote-card",
+        "value": "0 40px 80px -24px rgba(2,10,22,.6)",
+        "purpose": "Form card on navy."
+      },
+      {
+        "name": "button-primary",
+        "value": "0 6px 16px -6px rgba(31,95,168,.55)",
+        "purpose": "Blue buttons on light grounds."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.2,.8,.2,1)",
+        "purpose": "Underlines, FAQ toggle, action bar."
+      },
+      {
+        "name": "rinse",
+        "value": "1900ms",
+        "purpose": "Pure-water rinse on the hero window."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "520px"
+      },
+      {
+        "name": "md",
+        "value": "820px"
+      },
+      {
+        "name": "nav",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action on light grounds.",
+      "html": "<button class=\"ds-btn-primary\">Get a free quote</button>",
+      "css": ".ds-btn-primary{background:#1F5FA8;color:#fff;border:0;border-radius:999px;padding:13px 24px;font:700 16px Manrope,system-ui,sans-serif;box-shadow:0 6px 16px -6px rgba(31,95,168,.55);cursor:pointer;transition:background .2s}.ds-btn-primary:hover{background:#174C88}.ds-btn-primary:focus-visible{outline:3px solid #3C8AD8;outline-offset:3px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action (call).",
+      "html": "<button class=\"ds-btn-outline\">Call 07799 963390</button>",
+      "css": ".ds-btn-outline{background:transparent;color:#0E2A47;border:1.5px solid rgba(14,42,71,.28);border-radius:999px;padding:13px 24px;font:700 16px Manrope,system-ui,sans-serif;cursor:pointer}.ds-btn-outline:hover{border-color:#0E2A47}"
+    },
+    {
+      "name": "Service Toggle",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "Adds a service to the quote form.",
+      "html": "<button class=\"ds-toggle\" aria-pressed=\"true\"><span class=\"ds-box\"></span>On my quote</button>",
+      "css": ".ds-toggle{display:inline-flex;align-items:center;gap:9px;padding:7px 16px 7px 10px;border-radius:999px;border:1.5px solid #1F5FA8;background:#1F5FA8;color:#fff;font:700 15px Manrope,system-ui,sans-serif}.ds-box{width:20px;height:20px;border-radius:50%;background:#fff}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Form field.",
+      "html": "<input class=\"ds-input\" placeholder=\"e.g. CB8 8AB\">",
+      "css": ".ds-input{min-height:52px;padding:12px 15px;border-radius:10px;border:1.5px solid #CBD8E5;background:#F3F8FC;font:16px Manrope,system-ui,sans-serif;color:#0E2238}.ds-input:focus{outline:none;background:#fff;border-color:#1F5FA8;box-shadow:0 0 0 4px rgba(60,138,216,.2)}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "White content card.",
+      "html": "<div class=\"ds-card\"><h3>Gutter clearing</h3><p>Gutters emptied and downpipes checked.</p></div>",
+      "css": ".ds-card{background:#fff;border-radius:16px;padding:28px 30px;box-shadow:0 1px 2px rgba(11,35,64,.06),0 12px 32px -8px rgba(11,35,64,.14);font:16px/1.6 Manrope,system-ui,sans-serif;color:#4A5E74}.ds-card h3{margin:0 0 6px;color:#0E2238;font-weight:700}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Clear Glass, Deep Water",
+    "overview": "The window-cleaning category standard in premium blues; the interactive hero window is the single signature moment.",
+    "keyCharacteristics": [
+      "Navy and light sections alternate",
+      "One action colour: window blue",
+      "Manrope 800 headings",
+      "Rounded cards, pill buttons",
+      "No fake proof"
+    ],
+    "rules": [
+      {
+        "name": "The One Action Colour Rule",
+        "body": "Window Blue is the only colour that means do-this or selected; on navy the primary is white.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do keep actions in Window Blue",
+      "Do alternate navy and light sections"
+    ],
+    "donts": [
+      "Don't add orange, magenta or gold accents",
+      "Don't bring back the map concept",
+      "Don't add stock photos or invented reviews"
+    ]
+  }
+}
