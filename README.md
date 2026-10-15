@@ -5,10 +5,15 @@ A one-page site in plain HTML, CSS and JavaScript. There's no build step, no fra
 ```
 index.html          the whole page
 css/styles.css      all styling
-js/main.js          menu, hero window animation, quote form
-assets/             fonts, favicon, phone icon, social share image
+js/main.js          menu, hero window, postcode check, quote form
+assets/             fonts (Manrope), favicon, app icon, social share image
 robots.txt
+PRODUCT.md          what the business is, for design tools (Impeccable)
+DESIGN.md           the visual system: colours, type, components
+.impeccable/        design-tool working files (share-image source pages, review screenshots)
 ```
+
+The look is deep navy and clear window blues with white, set in Manrope. The area diagram plots each village at its real map position.
 
 **To preview:** double-click `index.html` (Chrome or Safari). The form only sends once step 1 is done.
 
@@ -29,7 +34,7 @@ The business is called "Tim’s Window Cleaning". To change it later:
 
 - Find and replace `Tim’s Window Cleaning` throughout `index.html` (title, share text, schema `name`, form email name and footer).
 - Replace the short logo word in the two `<span class="brand-name">Tim’s</span>` lines (header and footer).
-- Regenerate `assets/og-image.png` (the preview image shown when the link is shared on WhatsApp or Facebook), because the name is in it. Ask Claude to redo it.
+- Regenerate `assets/og-image.png` (the preview image shown when the link is shared on WhatsApp or Facebook), because the name is in it. It's a screenshot of `.impeccable/assets-src/og.html` at 1200×630; edit that page and ask Claude to re-shoot it.
 
 The phone number appears as `07799 963390` and `447799963390`, so a find and replace handles both if it ever changes.
 
@@ -66,4 +71,8 @@ There are no reviews, insurance details or years in business on the site yet, on
 
 ### How the hero window works
 
-The whole window starts dirty. Visitors clean it by running their mouse over the glass (or swiping across it on a phone), or click *let Tim do it* to watch the squeegee clean it top to bottom. Once the glass is clean the caption reads "That's how Tim will leave your windows every time." and a *Make it dirty again* button puts fresh grime back so they can go again. Anyone who has asked their device to reduce motion sees it without the animation.
+The whole window starts dirty. Visitors clean it by running their mouse over the glass (or swiping across it on a phone), or click *let Tim do it* to watch the squeegee clean it top to bottom. When the glass comes clean, pure water rinses down it and dries clear, the caption reads "That's how Tim will leave your windows every time." and a *Make it dirty again* button puts fresh grime back so they can go again. Anyone who has asked their device to reduce motion sees it without the animation.
+
+### The postcode check
+
+The box under the headline ("Is your street on the round?") answers instantly from the list of postcode districts in `js/main.js` (`COVERED`: CB1–CB5, CB7, CB8, CB21, CB22, CB24, CB25, IP28). Anything else gets a friendly "just off our usual round, ask anyway". Edit that list if Tim's area changes, and update the town list and area diagram in `index.html` to match.

@@ -66,17 +66,31 @@
     }, { threshold: 0.15 }).observe(quoteSection);
   }
 
-  // "Add to my quote" links tick the matching service on the form
-  document.addEventListener("click", function (e) {
-    var link = e.target.closest("[data-service]");
-    if (!link) return;
-    var value = link.getAttribute("data-service");
-    var boxes = document.querySelectorAll('input[name="services"]');
-    for (var i = 0; i < boxes.length; i++) {
-      if (boxes[i].value === value) boxes[i].checked = true;
+  // The key's "Add to my quote" buttons and the form's service boxes stay in step
+  var serviceBoxes = document.querySelectorAll('input[name="services"]');
+  var keyButtons = document.querySelectorAll(".key-add[data-service]");
+  function syncKey() {
+    for (var i = 0; i < keyButtons.length; i++) {
+      var on = false;
+      for (var j = 0; j < serviceBoxes.length; j++) {
+        if (serviceBoxes[j].value === keyButtons[i].getAttribute("data-service")) on = serviceBoxes[j].checked;
+      }
+      keyButtons[i].setAttribute("aria-pressed", String(on));
+      keyButtons[i].querySelector(".key-add-label").textContent = on ? "On my quote" : "Add to my quote";
     }
-    clearError("services");
-  });
+  }
+  for (var k = 0; k < keyButtons.length; k++) {
+    keyButtons[k].addEventListener("click", function () {
+      var value = this.getAttribute("data-service");
+      for (var j = 0; j < serviceBoxes.length; j++) {
+        if (serviceBoxes[j].value === value) serviceBoxes[j].checked = !serviceBoxes[j].checked;
+      }
+      clearError("services");
+      syncKey();
+    });
+  }
+  for (var s = 0; s < serviceBoxes.length; s++) serviceBoxes[s].addEventListener("change", syncKey);
+  syncKey();
 
   /* ------------------------------------------------------------------
      2. Hero window
@@ -97,7 +111,10 @@
     var dirtyBtn = root.querySelector("[data-dirty]");
     if (!canvas || !canvas.getContext) return;
 
-    var ctx = canvas.getContext("2d");
+    var ctx = canvas.getContext("2d", { willReadFrequently: true });
+    var waterCanvas = root.querySelector("[data-water]");
+    var wctx = waterCanvas && waterCanvas.getContext ? waterCanvas.getContext("2d") : null;
+    var rinseFrame = 0;
     var VB_X = -20, VB_W = 440, VB_H = 640;
     var GLASS = "M24 200A176 176 0 0 1 376 200V596H24Z";
     var glassPath = typeof Path2D === "function" ? new Path2D(GLASS) : null;
@@ -129,6 +146,7 @@
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(rect.width * dpr);
       canvas.height = Math.round(rect.height * dpr);
+      if (waterCanvas) { waterCanvas.width = canvas.width; waterCanvas.height = canvas.height; }
       scale = canvas.width / VB_W;
       buildSamples();
       redraw();
@@ -309,6 +327,73 @@
       gleam.classList.add("is-running");
     }
 
+    // The rinse: pure water running down the clean glass and drying clear
+    function rinse(done) {
+      if (reduceMotion || !wctx) { if (done) done(); return; }
+      cancelAnimationFrame(rinseFrame);
+      var r = rng(Math.floor(Math.random() * 9973) + 1);
+      var drops = [];
+      for (var i = 0; i < 46; i++) {
+        drops.push({
+          x: 34 + r() * 332,
+          y0: 30 + r() * 300,
+          delay: r() * 420,
+          speed: 0.18 + r() * 0.32,
+          wob: (r() - 0.5) * 6,
+          size: 2.2 + r() * 2.6
+        });
+      }
+      var t0 = null, DURATION = 1900;
+      function frame(now) {
+        if (t0 === null) t0 = now;
+        var t = now - t0;
+        wctx.setTransform(1, 0, 0, 1, 0, 0);
+        wctx.clearRect(0, 0, waterCanvas.width, waterCanvas.height);
+        wctx.setTransform(scale, 0, 0, scale, -VB_X * scale, 0);
+        wctx.save();
+        if (glassPath) wctx.clip(glassPath);
+        var fade = t > DURATION - 600 ? Math.max((DURATION - t) / 600, 0) : 1;
+        // a light sheen of water over the whole pane, drying from the top
+        var dry = Math.min(t / DURATION, 1);
+        var sheen = wctx.createLinearGradient(0, 0, 0, 640);
+        sheen.addColorStop(0, "rgba(220, 238, 250, 0)");
+        sheen.addColorStop(Math.min(dry + 0.01, 1), "rgba(220, 238, 250, 0)");
+        sheen.addColorStop(Math.min(dry + 0.2, 1), "rgba(200, 228, 248, " + (0.22 * fade).toFixed(3) + ")");
+        sheen.addColorStop(1, "rgba(200, 228, 248, " + (0.28 * fade).toFixed(3) + ")");
+        wctx.fillStyle = sheen;
+        wctx.fillRect(0, 0, 400, 640);
+        wctx.lineCap = "round";
+        for (var i = 0; i < drops.length; i++) {
+          var d = drops[i];
+          var dt = t - d.delay;
+          if (dt <= 0) continue;
+          var y = d.y0 + d.speed * dt + 0.00018 * dt * dt;
+          if (y > 600) y = 600;
+          var x = d.x + Math.sin(dt / 140) * d.wob * 0.3;
+          var top = Math.max(d.y0, y - 70);
+          var trail = wctx.createLinearGradient(0, top, 0, y);
+          trail.addColorStop(0, "rgba(255, 255, 255, 0)");
+          trail.addColorStop(1, "rgba(255, 255, 255, " + (0.45 * fade).toFixed(3) + ")");
+          wctx.strokeStyle = trail;
+          wctx.lineWidth = d.size * 0.55;
+          wctx.beginPath(); wctx.moveTo(d.x, top); wctx.lineTo(x, y); wctx.stroke();
+          wctx.fillStyle = "rgba(255, 255, 255, " + (0.75 * fade).toFixed(3) + ")";
+          wctx.beginPath(); wctx.arc(x, y, d.size, 0, Math.PI * 2); wctx.fill();
+          wctx.fillStyle = "rgba(29, 111, 184, " + (0.25 * fade).toFixed(3) + ")";
+          wctx.beginPath(); wctx.arc(x + d.size * 0.25, y + d.size * 0.3, d.size * 0.55, 0, Math.PI * 2); wctx.fill();
+        }
+        wctx.restore();
+        if (t < DURATION) {
+          rinseFrame = requestAnimationFrame(frame);
+        } else {
+          wctx.setTransform(1, 0, 0, 1, 0, 0);
+          wctx.clearRect(0, 0, waterCanvas.width, waterCanvas.height);
+          if (done) done();
+        }
+      }
+      rinseFrame = requestAnimationFrame(frame);
+    }
+
     function setCaption(text, button) {
       captionText.textContent = text;
       finishBtn.hidden = button !== "finish";
@@ -332,8 +417,8 @@
       squeegee.style.opacity = "0";
       canvas.style.transition = reduceMotion ? "none" : "opacity .6s ease";
       canvas.style.opacity = "0";
-      runGleam();
       setCaption("That's how Tim will leave your windows every time.", "dirty");
+      rinse(runGleam);
     }
 
     // Let Tim do it: squeegee the whole window, top to bottom
@@ -349,6 +434,8 @@
     // Put fresh grime back on the glass so it can be cleaned again
     function makeDirty() {
       if (state !== "clean") return;
+      cancelAnimationFrame(rinseFrame);
+      if (wctx) { wctx.setTransform(1, 0, 0, 1, 0, 0); wctx.clearRect(0, 0, waterCanvas.width, waterCanvas.height); }
       grimeSeed = (grimeSeed * 31 + 17) % 9973; // a slightly different mess each time
       paintGrime();
       canvas.style.transition = reduceMotion ? "none" : "opacity .5s ease";
@@ -590,6 +677,77 @@
     });
   }
 
+  /* ------------------------------------------------------------------
+     4. "Is your street on the round?" postcode check in the hero
+  ------------------------------------------------------------------ */
+  var check = document.querySelector("[data-check]");
+  if (check) {
+    var checkInput = check.elements.postcode;
+    var checkResult = check.querySelector("[data-check-result]");
+    var QUOTE_LINK = '<a href="#quote" data-to-quote>Get my free quote</a>';
+    check.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var v = checkInput.value.trim();
+      checkInput.removeAttribute("aria-invalid");
+      if (!v) {
+        checkResult.innerHTML = '<span class="bad">Type your postcode, like CB8 8AB.</span>';
+        checkInput.setAttribute("aria-invalid", "true");
+        checkInput.focus();
+        return;
+      }
+      // A district alone (e.g. "CB8") is enough to answer
+      var district = v.replace(/\s+/g, "").toUpperCase();
+      if (POSTCODE_RE.test(v)) {
+        checkInput.value = formatPostcode(v);
+        district = checkInput.value.split(" ")[0];
+      } else if (!/^[A-Z]{1,2}\d[A-Z\d]?$/.test(district)) {
+        checkResult.innerHTML = '<span class="bad">That doesn’t look like a postcode. Try something like CB8 8AB.</span>';
+        checkInput.setAttribute("aria-invalid", "true");
+        checkInput.focus();
+        return;
+      }
+      if (COVERED.indexOf(district) !== -1) {
+        checkResult.innerHTML = '<span class="yes">Yes, ' + district + ' is on the round.</span> ' + QUOTE_LINK;
+      } else {
+        checkResult.innerHTML = '<span class="near">' + district + ' is just off our usual round.</span> Ask anyway: if we’re nearby, we’ll fit you in. ' + QUOTE_LINK;
+      }
+    });
+    checkInput.addEventListener("input", function () { checkInput.removeAttribute("aria-invalid"); });
+    // Carry the postcode down to the quote form
+    checkResult.addEventListener("click", function (e) {
+      if (!e.target.closest("[data-to-quote]") || !form) return;
+      var pc = checkInput.value.trim();
+      if (pc && POSTCODE_RE.test(pc)) {
+        field("postcode").value = formatPostcode(pc);
+        clearError("postcode");
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     5. Gazetteer: choose a place to light it up on the map
+  ------------------------------------------------------------------ */
+  var mapSvg = document.querySelector(".area-map-svg");
+  var placeButtons = document.querySelectorAll(".gaz-place");
+  if (mapSvg && placeButtons.length) {
+    var selectPlace = function (name) {
+      for (var i = 0; i < placeButtons.length; i++) {
+        placeButtons[i].setAttribute("aria-pressed", String(placeButtons[i].getAttribute("data-place") === name));
+      }
+      var towns = mapSvg.querySelectorAll("[data-town]");
+      for (var j = 0; j < towns.length; j++) {
+        towns[j].classList.toggle("is-selected", towns[j].getAttribute("data-town") === name);
+      }
+      mapSvg.classList.toggle("has-selection", !!name);
+    };
+    for (var p = 0; p < placeButtons.length; p++) {
+      placeButtons[p].addEventListener("click", function () {
+        var name = this.getAttribute("data-place");
+        selectPlace(this.getAttribute("aria-pressed") === "true" ? null : name);
+      });
+    }
+  }
+
   function showSuccess(name, phone) {
     var first = (name || "").trim().split(/\s+/)[0];
     document.querySelector("[data-success-title]").textContent =
@@ -605,6 +763,7 @@
   if (resetBtn) {
     resetBtn.addEventListener("click", function () {
       form.reset();
+      syncKey();
       document.getElementById("f-postcode-hint").hidden = true;
       statusEl.hidden = true;
       successPanel.hidden = true;

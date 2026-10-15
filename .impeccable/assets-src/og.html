@@ -1,0 +1,124 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../css/styles.css">
+<style>html,body{margin:0;width:1200px;height:630px;overflow:hidden;padding:0!important}
+.og{position:relative;width:1200px;height:630px;display:grid;grid-template-columns:1fr 360px;align-items:center;gap:40px;padding:0 80px;box-sizing:border-box}
+.og h1{font-size:84px;max-width:none;color:#fff}
+.og .brand{display:flex;gap:16px;align-items:center;margin-bottom:34px;color:#fff}
+.og .brand-mark{width:60px;height:60px}.og .brand-name{font-size:40px}.og .brand-sub{font-size:18px;color:#AFC4D9}
+.og p.t{margin-top:26px;font-size:26px;font-weight:700;color:#AFC4D9}
+.og .hero-window{max-width:330px}</style></head><body><section class="hero og">
+<div><div class="brand"><svg class="brand-mark" viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#FFFFFF"/><path d="M11 33V18.5a9 9 0 0 1 18 0V33Z" fill="none" stroke="#1F5FA8" stroke-width="2.4"/><path d="M11 24.5h18M20 9.5V33" fill="none" stroke="#1F5FA8" stroke-width="1.6"/><path d="M7 34.5h26" stroke="#1F5FA8" stroke-width="2.4"/></svg><span class="brand-text"><span class="brand-name">Tim’s</span><span class="brand-sub">Window Cleaning</span></span></div>
+<h1>Clear windows, kept that way.</h1><p class="t">Newmarket to Cambridge · 07799 963390</p></div>
+<figure class="hero-window" data-window>
+          <div class="window-stage">
+            <!-- The view through the glass: a morning over the Heath gallops -->
+            <svg class="window-view" viewBox="-20 0 440 640" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <clipPath id="glass-clip"><path d="M24 200A176 176 0 0 1 376 200V596H24Z"/></clipPath>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#5E93C6"/>
+                  <stop offset=".42" stop-color="#A3C7E2"/>
+                  <stop offset=".7" stop-color="#E6E4D6"/>
+                  <stop offset=".8" stop-color="#F6DDB0"/>
+                </linearGradient>
+                <radialGradient id="sun-glow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#FFF6DE" stop-opacity=".95"/>
+                  <stop offset=".35" stop-color="#FCE6BC" stop-opacity=".55"/>
+                  <stop offset="1" stop-color="#F6D9A6" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="turf" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#8CB065"/>
+                  <stop offset="1" stop-color="#557A3E"/>
+                </linearGradient>
+              </defs>
+              <g clip-path="url(#glass-clip)">
+                <rect x="0" y="0" width="400" height="640" fill="url(#sky)"/>
+                <g transform="translate(0 -100)">
+                <circle cx="282" cy="452" r="120" fill="url(#sun-glow)"/>
+                <circle cx="282" cy="452" r="26" fill="#FFF5DA"/>
+                <path d="M0 468c18-10 30-6 44-12s22-14 40-8 24 4 36-2 26-10 44-4 20 10 34 6 28-14 46-10 24 8 38 6 30-10 48-6 22 10 36 8 22-4 34 0V520H0Z" fill="#8FA3AE" opacity=".85"/>
+                <path d="M0 486c22-6 40 2 62-4s38-12 60-6 30 10 52 6 44-10 66-6 36 8 58 4 50-6 72 0 20 4 30 2V530H0Z" fill="#6B8A76"/>
+                <path d="M0 500c60-10 120-8 200-4s150 4 200-2V760H0Z" fill="url(#turf)"/>
+                <path d="M0 528c80-8 170-10 260-6 60 3 100 2 140-2v14c-40 4-80 6-140 3-90-4-180-2-260 6Z" fill="#B3C98A" opacity=".7"/>
+                <g stroke="#FFFFFF" stroke-linecap="round">
+                  <path d="M0 556H400" stroke-width="3.2"/>
+                  <path d="M0 568H400" stroke-width="2.4" opacity=".9"/>
+                  <path d="M20 552v34M80 552v34M140 552v34M200 552v34M260 552v34M320 552v34M380 552v34" stroke-width="3"/>
+                </g>
+                </g>
+                <g fill="none" stroke="#2F4E6E" stroke-width="2" stroke-linecap="round" opacity=".6">
+                  <path d="M118 236q6-6 12 0q6-6 12 0"/>
+                  <path d="M150 262q4-4 8 0q4-4 8 0"/>
+                </g>
+              </g>
+            </svg>
+
+            
+            <canvas class="window-water" data-water aria-hidden="true"></canvas>
+
+            <!-- Frame, glazing bars and the squeegee -->
+            <svg class="window-frame" viewBox="-20 0 440 640" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <linearGradient id="gleam" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset=".5" stop-color="#fff" stop-opacity=".6"/>
+                  <stop offset=".55" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="reflection" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".22"/>
+                  <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset=".62" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset=".7" stop-color="#fff" stop-opacity=".12"/>
+                  <stop offset=".78" stop-color="#fff" stop-opacity="0"/>
+                </linearGradient>
+                <clipPath id="glass-clip-2"><path d="M24 200A176 176 0 0 1 376 200V596H24Z"/></clipPath>
+              </defs>
+
+              <g clip-path="url(#glass-clip-2)">
+                <rect x="0" y="0" width="400" height="640" fill="url(#reflection)"/>
+                <rect class="gleam" data-gleam x="-400" y="-200" width="1200" height="1040" fill="url(#gleam)"/>
+              </g>
+
+              <!-- outer frame: painted white timber -->
+              <path d="M0 200A200 200 0 0 1 400 200V620H0ZM24 200V596H376V200A176 176 0 0 0 24 200Z" fill="#FFFFFF" fill-rule="evenodd"/>
+              
+              <path d="M24 200A176 176 0 0 1 376 200V596H24Z" fill="none" stroke="#C9D6E3" stroke-width="2.5"/>
+
+              <g stroke="#FFFFFF" stroke-width="6" fill="none">
+                <path d="M144 200a56 56 0 0 1 112 0"/>
+                <path d="M151.5 172 47.6 112M172 151.5 112 47.6M200 144V24M228 151.5 288 47.6M248.5 172 352.4 112"/>
+              </g>
+              <g fill="#FFFFFF">
+                <rect x="24" y="196" width="352" height="9"/>
+                <rect x="138" y="200" width="7" height="200"/>
+                <rect x="255" y="200" width="7" height="200"/>
+                <rect x="24" y="297" width="352" height="7"/>
+                <rect x="20" y="394" width="360" height="22"/>
+                <rect x="138" y="414" width="7" height="182"/>
+                <rect x="255" y="414" width="7" height="182"/>
+                <rect x="24" y="502" width="352" height="7"/>
+              </g>
+              <rect x="20" y="413" width="360" height="3" fill="#DADAD4"/>
+              
+              <g>
+                <rect x="186" y="398" width="28" height="9" rx="3" fill="#B9C6D3"/>
+                <circle cx="200" cy="402.5" r="2.2" fill="#6E7F91"/>
+              </g>
+              <rect x="-16" y="616" width="432" height="20" rx="2" fill="#E3EAF1"/>
+              <rect x="-16" y="616" width="432" height="4" fill="#F7FAFC"/>
+
+              <!-- squeegee (moved by script) -->
+              <g class="squeegee" data-squeegee opacity="0">
+                <g data-squeegee-flip>
+                  <rect x="-62" y="-7" width="54" height="14" rx="7" fill="#1F5FA8"/>
+                  <rect x="-66" y="-5" width="8" height="10" rx="3" fill="#0E2A47"/>
+                  <rect x="-10" y="-46" width="10" height="92" rx="2" fill="#C7D2DD"/>
+                  <rect x="0" y="-46" width="4" height="92" rx="1.5" fill="#0E2A47"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          </figure>
+</section></body></html>
