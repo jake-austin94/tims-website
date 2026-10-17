@@ -1,4 +1,4 @@
-# Tim's window cleaning website
+# T M Professional Window Cleaning website
 
 A one-page site in plain HTML, CSS and JavaScript. There's no build step, no framework and nothing to install. The fonts are bundled in the folder, so it doesn't rely on Google Fonts.
 
@@ -30,10 +30,10 @@ The free plan allows 250 enquiries a month. Each email includes the customer's n
 
 ## 2. Business name
 
-The business is called "Tim’s Window Cleaning". To change it later:
+The business is called "T M Professional Window Cleaning". To change it later:
 
-- Find and replace `Tim’s Window Cleaning` throughout `index.html` (title, share text, schema `name`, form email name and footer).
-- Replace the short logo word in the two `<span class="brand-name">Tim’s</span>` lines (header and footer).
+- Find and replace `T M Professional Window Cleaning` throughout `index.html` (title, share text, schema `name`, form email name and footer).
+- Replace the logo text in the two `<span class="brand-name">T M</span>` / `<span class="brand-sub">Professional Window Cleaning</span>` pairs (header and footer).
 - Regenerate `assets/og-image.png` (the preview image shown when the link is shared on WhatsApp or Facebook), because the name is in it. It's a screenshot of `.impeccable/assets-src/og.html` at 1200×630; edit that page and ask Claude to re-shoot it.
 
 The phone number appears as `07799 963390` and `447799963390`, so a find and replace handles both if it ever changes.
@@ -48,7 +48,7 @@ The copy describes standard pure-water window cleaning practice. Tim should conf
 - He lets customers know before each visit
 - He'll pop round to price a job if needed
 - He reschedules only for heavy rain, high winds or frost
-- Conservatory roofs are done with soft brushes, and downpipes are checked when gutters are cleared
+- Conservatory roofs are done with soft brushes, and downpipes are checked when gutters are cleared (services offered: windows, conservatory roofs, gutters and fascias)
 - WhatsApp works on 07799 963390
 
 ## 4. Add trust signals when Tim has them

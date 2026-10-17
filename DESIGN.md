@@ -1,5 +1,5 @@
 ---
-name: Tim's Window Cleaning
+name: T M Professional Window Cleaning
 description: Pure-water window cleaning from Newmarket to Cambridge, in clear premium blues.
 colors:
   harbour-navy-950: "#071A2E"
@@ -85,7 +85,7 @@ components:
     rounded: "{rounded.md}"
 ---
 
-# Design System: Tim's Window Cleaning
+# Design System: T M Professional Window Cleaning
 
 ## Overview
 

@@ -1,5 +1,5 @@
 /* =========================================================
-   Tim’s Window Cleaning
+   T M Professional Window Cleaning
    Palette: deep harbour navy, clear window blue, sky, mist white
    Type:    Manrope (display and text), self-hosted
    ========================================================= */
@@ -130,17 +130,17 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
   transition: box-shadow .25s ease;
 }
 .site-header.is-scrolled { box-shadow: 0 8px 24px -12px rgba(11, 35, 64, .25); }
-.header-inner { display: flex; align-items: center; gap: 2rem; height: var(--header-h); }
+.header-inner { display: flex; align-items: center; gap: 1.5rem; height: var(--header-h); }
 
 .brand { display: inline-flex; align-items: center; gap: .75rem; text-decoration: none; color: inherit; }
 .brand-mark { width: 40px; height: 40px; flex: none; }
 .brand-text { display: flex; flex-direction: column; line-height: 1; }
 .brand-name { font-weight: 800; font-size: 1.45rem; letter-spacing: -.02em; }
-.brand-sub { font-size: .78rem; font-weight: 600; letter-spacing: .04em; margin-top: .2rem; color: var(--muted); }
+.brand-sub { font-size: .78rem; font-weight: 600; letter-spacing: .04em; margin-top: .2rem; color: var(--muted); white-space: nowrap; }
 
 .site-nav { margin-left: auto; }
-.site-nav ul { display: flex; gap: 1.75rem; list-style: none; }
-.site-nav a { text-decoration: none; font-size: .98rem; font-weight: 600; color: var(--muted); padding: .4rem 0; position: relative; transition: color .2s ease; }
+.site-nav ul { display: flex; gap: 1.3rem; list-style: none; }
+.site-nav a { white-space: nowrap; text-decoration: none; font-size: .98rem; font-weight: 600; color: var(--muted); padding: .4rem 0; position: relative; transition: color .2s ease; }
 .site-nav a:hover { color: var(--navy-800); }
 .site-nav a::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; border-radius: 2px;
@@ -148,7 +148,8 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 }
 .site-nav a:hover::after { transform: scaleX(1); }
 
-.header-actions { display: flex; align-items: center; gap: 1.1rem; }
+.header-actions { display: flex; align-items: center; gap: 1rem; }
+.header-cta { white-space: nowrap; }
 .header-phone { display: inline-flex; align-items: center; gap: .45rem; text-decoration: none; font-weight: 700; font-size: .98rem; white-space: nowrap; }
 .header-phone svg { width: 19px; height: 19px; color: var(--blue); }
 
@@ -168,12 +169,12 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 .nav-toggle[aria-expanded="true"] .nav-toggle-bars::before { transform: translateY(6px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after { transform: translateY(-6px) rotate(-45deg); }
 
-@media (max-width: 1080px) {
+@media (max-width: 1340px) {
   .header-phone span { display: none; }
   .header-phone { width: 46px; height: 46px; justify-content: center; border: 1px solid var(--line); border-radius: 50%; }
   .site-nav ul { gap: 1.2rem; }
 }
-@media (max-width: 900px) {
+@media (max-width: 1140px) {
   :root { --header-h: 66px; }
   .nav-toggle { display: inline-block; }
   .header-cta { display: none; }
