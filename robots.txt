@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://newmarketwindowcleaner.co.uk/sitemap.xml

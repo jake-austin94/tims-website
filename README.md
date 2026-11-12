@@ -7,7 +7,9 @@ index.html          the whole page
 css/styles.css      all styling
 js/main.js          menu, hero window, postcode check, quote form
 assets/             fonts (Manrope), favicon, app icon, social share image
-robots.txt
+robots.txt          lets search engines in and points them to the sitemap
+sitemap.xml         the page list for Google
+CNAME               tells GitHub Pages the site's domain
 PRODUCT.md          what the business is, for design tools (Impeccable)
 DESIGN.md           the visual system: colours, type, components
 .impeccable/        design-tool working files (share-image source pages, review screenshots)
@@ -21,10 +23,11 @@ The look is deep navy and clear window blues with white, set in Manrope. The are
 
 ## 1. Connect the quote form (5 minutes, free)
 
-1. Go to **web3forms.com**, type in the email address Tim wants enquiries sent to, and click *Create Access Key*.
-2. The key arrives by email. It looks like `a1b2c3d4-....`
+1. Go to **web3forms.com**, type in **newmarketwindowcleaner@gmail.com**, and click *Create Access Key*.
+2. The key arrives in that Gmail inbox. It looks like `a1b2c3d4-....`
 3. Open `index.html`, search for `YOUR_WEB3FORMS_ACCESS_KEY` and paste the key in its place.
-4. Send a test enquiry from the live site and check it lands in Tim's inbox (and his spam folder the first time).
+4. Commit and push the change (or ask Claude to). The live site updates within a minute or two.
+5. Send a test enquiry from the live site and check it lands in Tim's inbox (and his spam folder the first time).
 
 The free plan allows 250 enquiries a month. Each email includes the customer's name, phone, email (if given), postcode, property type, services, frequency and message. If the customer gives an email address, Tim can just hit Reply.
 
@@ -76,3 +79,20 @@ The whole window starts dirty. Visitors clean it by running their mouse over the
 ### The postcode check
 
 The box under the headline ("Is your street on the round?") answers instantly from the list of postcode districts in `js/main.js` (`COVERED`: CB1–CB5, CB7, CB8, CB21, CB22, CB24, CB25, IP28). Anything else gets a friendly "just off our usual round, ask anyway". Edit that list if Tim's area changes, and update the town list and area diagram in `index.html` to match.
+
+## 5. Hosting and domain
+
+- **Live site:** https://newmarketwindowcleaner.co.uk, hosted free on GitHub Pages from the `main` branch of `jake-austin94/tims-website`. Every push to `main` updates the live site within a minute or two.
+- **Domain:** registered with Wix, pointed at GitHub Pages with these DNS records (Wix: Domains → the domain → Manage DNS records):
+
+| Type | Host | Points to |
+|---|---|---|
+| A | @ (root) | 185.199.108.153 |
+| A | @ (root) | 185.199.109.153 |
+| A | @ (root) | 185.199.110.153 |
+| A | @ (root) | 185.199.111.153 |
+| CNAME | www | jake-austin94.github.io |
+
+- Don't delete the `CNAME` file. It's how GitHub Pages knows the site's domain.
+- **Email:** newmarketwindowcleaner@gmail.com is shown on the site and receives quote-form enquiries.
+- Next for local SEO: set up a free Google Business Profile with the same name, phone number and area, and add the site to Google Search Console (submit `https://newmarketwindowcleaner.co.uk/sitemap.xml`).
