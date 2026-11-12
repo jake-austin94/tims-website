@@ -3,5 +3,11 @@
   <url>
     <loc>https://newmarketwindowcleaner.co.uk/</loc>
     <lastmod>2026-11-12</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://newmarketwindowcleaner.co.uk/privacy.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <priority>0.2</priority>
   </url>
 </urlset>
