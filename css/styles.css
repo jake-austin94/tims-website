@@ -11,27 +11,33 @@
 @font-face { font-family: "Manrope"; src: url("../assets/fonts/manrope-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "Manrope"; src: url("../assets/fonts/manrope-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-style: normal; font-display: swap; }
 
+/* Josefin Sans, the logo face. Used only for the name and section eyebrows. */
+@font-face { font-family: "Josefin Sans"; src: url("../assets/fonts/josefin-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Josefin Sans"; src: url("../assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
 :root {
-  --navy-950: #071A2E;
-  --navy-900: #0B2340;
-  --navy-800: #0E2A47;
-  --navy-700: #163A60;
-  --blue: #1F5FA8;
-  --blue-hover: #174C88;
-  --blue-bright: #3C8AD8;
-  --sky: #8FC5EE;
-  --sky-pale: #D6E9F8;
-  --mist: #F3F8FC;
+  /* Taken from the logo: navy #104861, accent #45B0E1, pale #CAEEFB */
+  --navy-950: #06293A;
+  --navy-900: #0B3A4F;
+  --navy-800: #104861;
+  --navy-700: #185E7D;
+  --blue: #1B6C92;
+  --blue-hover: #145875;
+  --blue-bright: #2E92C4;
+  --sky: #45B0E1;
+  --sky-pale: #CAEEFB;
+  --mist: #F1F8FC;
   --white: #FFFFFF;
-  --text: #0E2238;
-  --muted: #4A5E74;
-  --on-dark: #E8F1FA;
-  --on-dark-muted: #AFC4D9;
-  --line: #DCE6EF;
+  --text: #0C2633;
+  --muted: #47616F;
+  --on-dark: #E6F3FA;
+  --on-dark-muted: #A9C8D8;
+  --line: #D9E6ED;
   --line-dark: rgba(232, 241, 250, .16);
   --error: #B42318;
 
   --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-brand: "Josefin Sans", "Manrope", system-ui, sans-serif;
 
   --wrap: 1200px;
   --gutter: clamp(1rem, 4vw, 2.5rem);
@@ -132,11 +138,12 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 .site-header.is-scrolled { box-shadow: 0 8px 24px -12px rgba(11, 35, 64, .25); }
 .header-inner { display: flex; align-items: center; gap: 1.5rem; height: var(--header-h); }
 
-.brand { display: inline-flex; align-items: center; gap: .75rem; text-decoration: none; color: inherit; }
-.brand-mark { width: 40px; height: 40px; flex: none; }
-.brand-text { display: flex; flex-direction: column; line-height: 1; }
-.brand-name { font-weight: 800; font-size: 1.45rem; letter-spacing: -.02em; }
-.brand-sub { font-size: .78rem; font-weight: 600; letter-spacing: .04em; margin-top: .2rem; color: var(--muted); white-space: nowrap; }
+/* Logo lockup: the arched window, a hairline rule, then the name — as drawn. */
+.brand { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; color: inherit; }
+.brand-mark { width: 26px; height: 45px; flex: none; color: var(--navy-800); }
+.brand-text { display: flex; flex-direction: column; line-height: 1; padding-left: .7rem; border-left: 2px solid var(--sky); }
+.brand-name { font-family: var(--font-brand); font-weight: 700; font-size: 1.3rem; letter-spacing: .02em; text-transform: uppercase; }
+.brand-sub { font-family: var(--font-brand); font-size: .7rem; font-weight: 600; letter-spacing: .09em; margin-top: .3rem; color: var(--muted); white-space: nowrap; text-transform: uppercase; }
 
 .site-nav { margin-left: auto; }
 .site-nav ul { display: flex; gap: 1.3rem; list-style: none; }
@@ -190,8 +197,8 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
   .site-nav li + li { border-top: 1px solid var(--line); }
   .site-nav a { display: block; padding: 1rem 0; font-size: 1.1rem; color: var(--navy-800); }
   .site-nav a::after { display: none; }
-  .brand-name { font-size: 1.3rem; }
-  .brand-mark { width: 36px; height: 36px; }
+  .brand-name { font-size: 1.2rem; }
+  .brand-mark { width: 23px; height: 40px; }
 }
 
 /* ---------- Hero ---------- */
@@ -235,7 +242,7 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 .check-result .yes { display: inline-flex; align-items: center; gap: .45rem; }
 .check-result .yes::before {
   content: ""; width: 18px; height: 18px; flex: none; border-radius: 50%;
-  background: var(--sky) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 3' fill='none' stroke='%230B2340' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+  background: var(--sky) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 3' fill='none' stroke='%2306293A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
 }
 .check-result a { font-weight: 700; color: var(--sky); }
 .check-result .bad { font-weight: 700; color: #FFC9C2; }
@@ -345,7 +352,7 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 .key-add[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
 .key-add[aria-pressed="true"] .key-box {
   border-color: #fff; background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 3' fill='none' stroke='%231F5FA8' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 3' fill='none' stroke='%231B6C92' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 .key-lead .key-add { border-color: rgba(255, 255, 255, .35); background: transparent; color: #fff; }
 .key-lead .key-add[aria-pressed="true"] { background: #fff; border-color: #fff; color: var(--navy-900); }
@@ -593,7 +600,7 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 .chip input:checked + span { background: var(--blue); border-color: var(--blue); color: #fff; }
 .chip input:checked + span::before {
   border-color: #fff; background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 3' fill='none' stroke='%231F5FA8' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2 4.1 7.2 8 3' fill='none' stroke='%231B6C92' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 .chip input[type="radio"]:checked + span::before { background-image: none; box-shadow: inset 0 0 0 4px var(--blue); }
 .chip input:focus-visible + span { outline: 3px solid var(--blue-bright); outline-offset: 2px; }
@@ -640,6 +647,8 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 .site-footer { background: var(--navy-950); color: var(--on-dark); padding-top: clamp(3.5rem, 7vw, 5rem); }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2.5rem; }
 .footer-brand .brand-sub { color: var(--on-dark-muted); }
+.footer-brand .brand-mark { color: var(--white); }
+.footer-brand .brand-text { border-left-color: var(--sky); }
 .footer-brand p { margin-top: 1.1rem; color: var(--on-dark-muted); max-width: 22em; }
 .footer-heading { font-weight: 700; font-size: 1rem; color: #fff; letter-spacing: 0; }
 .footer-links { margin-top: 1rem; display: grid; gap: .55rem; }
@@ -688,9 +697,10 @@ h3 { font-weight: 700; font-size: 1.22rem; line-height: 1.3; letter-spacing: -0.
 @media (max-width: 420px) {
   .header-inner { gap: .6rem; }
   .brand { gap: .5rem; min-width: 0; }
-  .brand-mark { width: 32px; height: 32px; }
-  .brand-name { font-size: 1.2rem; }
-  .brand-sub { font-size: .68rem; letter-spacing: .01em; }
+  .brand-mark { width: 20px; height: 35px; }
+  .brand-text { padding-left: .55rem; }
+  .brand-name { font-size: 1.08rem; }
+  .brand-sub { font-size: .6rem; letter-spacing: .05em; }
   .header-actions { gap: .4rem; }
   .header-phone, .nav-toggle { width: 42px; height: 42px; }
   .footer-grid > div:nth-child(2) { grid-column: 1 / -1; }

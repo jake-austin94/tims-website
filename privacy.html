@@ -15,8 +15,10 @@
   .legal-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
   .legal-header a { color: var(--on-dark); text-decoration: none; font-weight: 700; }
   .legal-header a:hover { text-decoration: underline; }
-  .legal-header .legal-brand { font-size: 1.15rem; letter-spacing: -.01em; }
-  .legal-header .legal-brand span { display: block; font-size: .78rem; font-weight: 500; color: var(--on-dark-muted); letter-spacing: 0; }
+  .legal-header .legal-brand { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--font-brand); font-size: 1.15rem; letter-spacing: .02em; text-transform: uppercase; }
+  .legal-header .legal-brand svg { width: 20px; height: 35px; flex: none; }
+  .legal-header .legal-brand em { font-style: normal; padding-left: .7rem; border-left: 2px solid var(--sky); }
+  .legal-header .legal-brand span { display: block; font-size: .66rem; font-weight: 600; color: var(--on-dark-muted); letter-spacing: .09em; margin-top: .25rem; }
 
   .legal { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(3rem, 7vw, 5rem); }
   .legal-inner { max-width: 44rem; }
@@ -37,7 +39,19 @@
 
 <header class="legal-header">
   <div class="wrap">
-    <a class="legal-brand" href="index.html">T M <span>Professional Window Cleaning</span></a>
+    <a class="legal-brand" href="index.html">
+      <svg viewBox="0 0 100 175" fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="square" aria-hidden="true">
+        <path d="M3.25 171.75V50a46.75 46.75 0 0 1 93.5 0v121.75Z"/>
+        <g stroke-width="4">
+          <path d="M4 50h92"/>
+          <path d="M50 6v44M50 50 16.8 16.8M50 50l33.2-33.2"/>
+          <path d="M27 50a23 23 0 0 1 46 0"/>
+          <path d="M25 50v121.75M50 50v121.75M75 50v121.75"/>
+          <path d="M4 80.4h92M4 110.9h92M4 141.3h92"/>
+        </g>
+      </svg>
+      <em>T M <span>Professional Window Cleaning</span></em>
+    </a>
     <a href="index.html">&larr; Back to the website</a>
   </div>
 </header>
