@@ -1,7 +1,7 @@
 /* T M Professional Window Cleaning: site behaviour
    1. Header, navigation and mobile action bar
    2. The hero window (grime, squeegee and wipe)
-   3. Quote form (validation + Web3Forms)
+   3. Quote form (validation + n8n webhook)
 */
 (function () {
   "use strict";
@@ -528,7 +528,10 @@
   var successPanel = document.querySelector("[data-success]");
   var statusEl = document.querySelector("[data-form-status]");
   var submitBtn = document.querySelector("[data-submit]");
-  var ENDPOINT = "https://api.web3forms.com/submit";
+  // Quote form goes to the n8n workflow "TM Professional Window Cleaning - Website Quote Form"
+  // (spam checks, Supabase log, email to Tim, confirmation to the customer)
+  var ENDPOINT = "https://foner.app.n8n.cloud/webhook/tm-quote-form-4f8a2c71";
+  var FORM_LOADED_AT = Date.now();
 
   // Postcode districts we usually cover; anything else gets a gentle note, not a block
   var COVERED = ["CB1", "CB2", "CB3", "CB4", "CB5", "CB7", "CB8", "CB21", "CB22", "CB24", "CB25", "IP28"];
@@ -631,20 +634,21 @@
       // Honeypot ticked: quietly pretend it worked
       if (fd.get("botcheck")) { showSuccess(); return; }
 
-      var data = {};
-      fd.forEach(function (value, key) {
-        if (key === "botcheck") return;
-        data[key] = data[key] ? data[key] + "; " + value : value;
-      });
-      if (!data.email) delete data.email;
-      data.postcode = formatPostcode(data.postcode || "");
-      data.subject = "New quote request: " + data.name + ", " + data.postcode;
-
-      if (!data.access_key || /^YOUR_/.test(data.access_key)) {
-        console.warn("Web3Forms access key missing. Paste it into the access_key field in index.html.");
-        showStatus("This form isn't connected yet. Add the Web3Forms access key to index.html (see README). Meanwhile, call <a href=\"tel:" + PHONE_TEL + "\">" + PHONE_DISPLAY + "</a>.");
-        return;
-      }
+      var services = [];
+      form.querySelectorAll('input[name="services"]:checked').forEach(function (el) { services.push(el.value); });
+      var data = {
+        name: (fd.get("name") || "").trim(),
+        phone: (fd.get("phone") || "").trim(),
+        email: (fd.get("email") || "").trim(),
+        postcode: formatPostcode(fd.get("postcode") || ""),
+        property: fd.get("property") || "",
+        services: services.join("; "),
+        frequency: fd.get("frequency") || "",
+        message: (fd.get("message") || "").trim(),
+        page: window.location.hostname || "newmarketwindowcleaner.co.uk",
+        website: "",
+        t: Date.now() - FORM_LOADED_AT
+      };
 
       submitBtn.setAttribute("aria-busy", "true");
       submitBtn.querySelector(".btn-label").textContent = "Sending";
@@ -658,16 +662,24 @@
         body: JSON.stringify(data),
         signal: controller ? controller.signal : undefined
       })
-        .then(function (res) { return res.json().catch(function () { return { success: false }; }); })
-        .then(function (json) {
-          if (json && json.success) {
+        .then(function (res) {
+          return res.json().catch(function () { return { ok: false }; }).then(function (json) {
+            return { status: res.status, json: json || {} };
+          });
+        })
+        .then(function (r) {
+          if (r.json.ok) {
             showSuccess(data.name, data.phone);
+          } else if (r.status === 400 && r.json.error) {
+            // The server spotted something to fix: show its message as-is (text, not HTML)
+            statusEl.textContent = r.json.error;
+            statusEl.hidden = false;
           } else {
-            throw new Error((json && json.message) || "Send failed");
+            throw new Error(r.json.error || "Send failed");
           }
         })
         .catch(function () {
-          showStatus("Your request didn't send. Check your connection and try again, or call <a href=\"tel:" + PHONE_TEL + "\">" + PHONE_DISPLAY + "</a>.");
+          showStatus("Your request didn't send. Check your connection and try again, or call or WhatsApp <a href=\"tel:" + PHONE_TEL + "\">" + PHONE_DISPLAY + "</a>.");
         })
         .then(function () {
           if (timer) clearTimeout(timer);

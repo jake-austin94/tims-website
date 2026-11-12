@@ -17,19 +17,24 @@ DESIGN.md           the visual system: colours, type, components
 
 The look is deep navy and clear window blues with white, set in Manrope. The area diagram plots each village at its real map position.
 
-**To preview:** double-click `index.html` (Chrome or Safari). The form only sends once step 1 is done.
+**To preview:** double-click `index.html` (Chrome or Safari). 
 
 ---
 
-## 1. Connect the quote form (5 minutes, free)
+## 1. How the quote form works
 
-1. Go to **web3forms.com**, type in **tmprofessionalwindowcleaning@gmail.com**, and click *Create Access Key*.
-2. The key arrives in that Gmail inbox. It looks like `a1b2c3d4-....`
-3. Open `index.html`, search for `YOUR_WEB3FORMS_ACCESS_KEY` and paste the key in its place.
-4. Commit and push the change (or ask Claude to). The live site updates within a minute or two.
-5. Send a test enquiry from the live site and check it lands in Tim's inbox (and his spam folder the first time).
+The form posts to an n8n workflow, **"TM Professional Window Cleaning - Website Quote Form"** (n8n project: Jake's personal project). The webhook address is at the top of the quote-form section in `js/main.js`.
 
-The free plan allows 250 enquiries a month. Each email includes the customer's name, phone, email (if given), postcode, property type, services, frequency and message. If the customer gives an email address, Tim can just hit Reply.
+For each submission, the workflow:
+
+1. Checks for spam (a hidden trap field, forms sent in under 3 seconds, link-stuffed messages, more than 5 in an hour from one connection) and for missing details.
+2. Logs every submission, including spam and invalid ones, to Supabase: the Roof & Render CRM project, table `tm_enquiries`. New leads have `lead_status = 'new'`.
+3. Emails Tim a branded enquiry from tmprofessionalwindowcleaning@gmail.com, with Call / WhatsApp / Reply buttons, and marks it unread so it stands out.
+4. If the customer left an email address, sends them a "thanks, your request is in" confirmation from Tim's Gmail.
+
+The website shows "Thanks" when the email to Tim goes out. If the workflow spots a problem, the visitor sees its message. If anything fails, they're asked to call or WhatsApp 07799 963390.
+
+To see all enquiries: Supabase → CRM project → Table editor → `tm_enquiries`.
 
 ## 2. Business name
 
@@ -94,5 +99,5 @@ The box under the headline ("Is your street on the round?") answers instantly fr
 | CNAME | www | jake-austin94.github.io |
 
 - Don't delete the `CNAME` file. It's how GitHub Pages knows the site's domain.
-- **Email:** tmprofessionalwindowcleaning@gmail.com is shown on the site and receives quote-form enquiries.
+- **Email:** tmprofessionalwindowcleaning@gmail.com is shown on the site, and quote-form enquiries are sent from and to it via n8n.
 - Next for local SEO: set up a free Google Business Profile with the same name, phone number and area, and add the site to Google Search Console (submit `https://newmarketwindowcleaner.co.uk/sitemap.xml`).
