@@ -23,7 +23,7 @@ The look is deep navy and clear window blues with white, set in Manrope. The are
 
 ## 1. Connect the quote form (5 minutes, free)
 
-1. Go to **web3forms.com**, type in **newmarketwindowcleaner@gmail.com**, and click *Create Access Key*.
+1. Go to **web3forms.com**, type in **tmprofessionalwindowcleaning@gmail.com**, and click *Create Access Key*.
 2. The key arrives in that Gmail inbox. It looks like `a1b2c3d4-....`
 3. Open `index.html`, search for `YOUR_WEB3FORMS_ACCESS_KEY` and paste the key in its place.
 4. Commit and push the change (or ask Claude to). The live site updates within a minute or two.
@@ -94,5 +94,5 @@ The box under the headline ("Is your street on the round?") answers instantly fr
 | CNAME | www | jake-austin94.github.io |
 
 - Don't delete the `CNAME` file. It's how GitHub Pages knows the site's domain.
-- **Email:** newmarketwindowcleaner@gmail.com is shown on the site and receives quote-form enquiries.
+- **Email:** tmprofessionalwindowcleaning@gmail.com is shown on the site and receives quote-form enquiries.
 - Next for local SEO: set up a free Google Business Profile with the same name, phone number and area, and add the site to Google Search Console (submit `https://newmarketwindowcleaner.co.uk/sitemap.xml`).
